@@ -1,0 +1,4 @@
+{
+  "serverPort": 8888,
+  "dbURL": "mongodb+srv://Pavel:whisper15@cluster0.rh6ib8m.mongodb.net/?retryWrites=true&w=majority"
+}
