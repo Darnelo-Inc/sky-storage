@@ -1,6 +1,6 @@
-const { Scheme, model, ObjectId } = require("mongoose")
+const { Schema, model, ObjectId } = require("mongoose")
 
-const User = new Scheme({
+const User = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   disk_space: { type: Number, default: 1024 ** 3 * 10 },
