@@ -1,2 +1,3 @@
 */node_modules
 server/config/default.json
+**/.DS_store
