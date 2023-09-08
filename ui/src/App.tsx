@@ -1,5 +1,11 @@
+import Nav from "./components/Header"
+
 const App = () => {
-  return <div>Sky Storage</div>
+  return (
+    <>
+      <Nav></Nav>
+    </>
+  )
 }
 
 export default App

@@ -1,0 +1,26 @@
+.header {
+  padding: 1rem 0;
+
+  background-color: $white;
+}
+
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+  display: flex;
+  justify-content: center;
+
+  text-decoration: none;
+}
+
+.header__title {
+  color: $black;
+}
+
+.header__sky {
+  color: $blue;
+}
