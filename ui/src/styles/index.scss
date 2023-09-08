@@ -1,0 +1,32 @@
+@import-normalize;
+
+@import "vars";
+@import "helpers";
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  color: $black;
+
+  background-color: $blue;
+}
+
+
+// Blocks
+@import "blocks/container.scss";
+@import "blocks/logo.scss";
+@import "blocks/header.scss";
+@import "blocks/btn.scss";
