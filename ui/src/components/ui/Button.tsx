@@ -1,12 +1,17 @@
-import { FC } from "react"
-import { ButtonProps } from "../../models/btn"
+import { ReactNode } from "react"
 
-const Button: FC<ButtonProps> = ({ children, ...rest }) => {
-  return (
-    <button className="btn" {...rest}>
-      {children}
-    </button>
-  )
-}
+const Button = ({
+  type,
+  children,
+  className,
+}: {
+  type: "button" | "submit" | "reset"
+  children: ReactNode
+  className: string
+}) => (
+  <button type={type} className={className}>
+    {children}
+  </button>
+)
 
 export default Button

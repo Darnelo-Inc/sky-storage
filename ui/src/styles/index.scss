@@ -17,7 +17,7 @@ html {
 body {
   margin: 0;
 
-  font-family: "Poppins", sans-serif;
+  font-family: $sans;
   font-size: 1.5rem;
   color: $black;
 
@@ -30,3 +30,5 @@ body {
 @import "blocks/logo.scss";
 @import "blocks/header.scss";
 @import "blocks/btn.scss";
+@import "blocks/auth.scss";
+@import "blocks/form.scss";

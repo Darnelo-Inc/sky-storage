@@ -1,0 +1,50 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 4rem;
+
+  font-size: 1.7rem;
+  color: $black;
+
+  background-color: $white;
+  border-radius: $btn-radius;
+}
+
+.form__title {
+  margin-bottom: 3rem;
+
+  font-weight: 500;
+  text-align: center;
+}
+
+.form__group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.form__label {
+  margin-right: 2rem;
+}
+
+.form__input {
+  width: 20rem;
+  padding: .5rem 1rem;
+
+  border: none;
+  border-bottom: .1rem solid $black;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    padding: 0;
+
+    font-size: 1.5rem;
+    font-style: italic;
+
+    opacity: .2;
+  }
+}
