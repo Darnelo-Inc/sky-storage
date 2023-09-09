@@ -1,3 +1,4 @@
 */node_modules
+.vscode
 server/config/default.json
 **/.DS_store
