@@ -9,7 +9,7 @@ const router = Router()
 const secretKey = config.secretKey
 
 router.post(
-  "/signup",
+  "/signUp",
   [
     check("email", "Incorrect email").isEmail(),
     check("password", "Password must be longer than 6 symbols").isLength({
@@ -46,7 +46,7 @@ router.post(
 )
 
 router.post(
-  "/signin",
+  "/signIn",
 
   async (req, res) => {
     try {
