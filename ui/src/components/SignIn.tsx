@@ -14,16 +14,11 @@ const SignIn: FC = () => {
     setData((prevData) => ({ ...prevData, [type]: e.target.value }))
   }
 
-  const [signIn, { data: signInData }] = useSignInMutation()
+  const [signIn] = useSignInMutation()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(data)
-
-    const result = await signIn(data)
-    console.log(result)
-    console.log("signInData:", signInData)
-    if (signInData) setUser(signInData.user)
+    await signIn(data)
     setData({ email: "", password: "" })
   }
 

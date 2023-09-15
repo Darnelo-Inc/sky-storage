@@ -13,14 +13,11 @@ const SignUp: FC = () => {
   }
 
   const [signUp] = useSignUpMutation()
-  const { setUser } = useActions()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(data)
-    const result = await signUp(data)
-    console.log(result)
-    // setUser(result)
+    const res = await signUp(data)
+    console.log(res)
     setData({ email: "", password: "" })
   }
 

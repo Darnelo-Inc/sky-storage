@@ -1,4 +1,5 @@
 import { setUser } from "../store/reducers/userSlice"
+import { lsUserTokenKey } from "../utils/lsKeys"
 import { IUserResponse } from "./../models/user"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
@@ -32,7 +33,7 @@ export const authApi = createApi({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled
-          dispatch(setUser(res.data.user))
+          dispatch(setUser(res.data))
         } catch (e) {
           console.log(e)
         }
