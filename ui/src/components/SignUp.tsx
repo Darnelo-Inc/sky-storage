@@ -3,6 +3,7 @@ import Form from "./ui/Form"
 import Button from "./ui/Button"
 import { AuthOnChange, IAuth } from "../models/auth"
 import { useSignUpMutation } from "../api/authApi"
+import { useActions } from "../hooks/useActions"
 
 const SignUp: FC = () => {
   const [data, setData] = useState<IAuth>({ email: "", password: "" })
@@ -12,12 +13,14 @@ const SignUp: FC = () => {
   }
 
   const [signUp] = useSignUpMutation()
+  const { setUser } = useActions()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log(data)
     const result = await signUp(data)
     console.log(result)
+    // setUser(result)
     setData({ email: "", password: "" })
   }
 

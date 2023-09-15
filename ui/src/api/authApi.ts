@@ -1,45 +1,42 @@
+import { setUser } from "../store/reducers/userSlice"
+import { IUserResponse } from "./../models/user"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-
-interface AuthResponse {
-  message: string
-}
 
 interface AuthRequest {
   email: string
   password: string
 }
 
+interface AuthResponse {
+  data: any
+}
+
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/api/auth/" }),
   endpoints: (builder) => ({
-    signUp: builder.mutation<AuthResponse, AuthRequest>({
+    signUp: builder.mutation<any, AuthRequest>({
       query: (body) => ({
         url: "signUp",
         method: "POST",
         body,
       }),
-      // transformResponse: (response: { data: AuthResponse }, meta, arg) =>
-      //   response.data,
-      // transformErrorResponse: (
-      //   response: { status: string | number },
-      //   meta,
-      //   arg
-      // ) => response.status,
     }),
-    signIn: builder.mutation<AuthResponse, AuthRequest>({
+    signIn: builder.mutation<IUserResponse, AuthRequest>({
       query: (body) => ({
         url: "signIn",
         method: "POST",
         body,
       }),
-      // transformResponse: (response: { data: AuthResponse }, meta, arg) =>
-      //   response.data,
-      // transformErrorResponse: (
-      //   response: { status: string | number },
-      //   meta,
-      //   arg
-      // ) => response.status,
+
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const res = await queryFulfilled
+          dispatch(setUser(res.data.user))
+        } catch (e) {
+          console.log(e)
+        }
+      },
     }),
   }),
 })

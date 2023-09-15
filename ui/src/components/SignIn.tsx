@@ -3,21 +3,27 @@ import Form from "./ui/Form"
 import Button from "./ui/Button"
 import { IAuth, AuthOnChange } from "../models/auth"
 import { useSignInMutation } from "../api/authApi"
+import { IUserInfo } from "../models/user"
+import { useActions } from "../hooks/useActions"
 
 const SignIn: FC = () => {
   const [data, setData] = useState<IAuth>({ email: "", password: "" })
+  const { setUser } = useActions()
 
   const onChange: AuthOnChange = (e, type) => {
     setData((prevData) => ({ ...prevData, [type]: e.target.value }))
   }
 
-  const [signIn] = useSignInMutation()
+  const [signIn, { data: signInData }] = useSignInMutation()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log(data)
+
     const result = await signIn(data)
     console.log(result)
+    console.log("signInData:", signInData)
+    if (signInData) setUser(signInData.user)
     setData({ email: "", password: "" })
   }
 

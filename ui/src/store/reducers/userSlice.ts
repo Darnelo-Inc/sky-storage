@@ -1,13 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { IUser } from "../../models/user"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { IUser, IUserInfo } from "../../models/user"
 
 const initialState: IUser = {
-  currentUser: {},
+  currentUser: {} as IUserInfo,
   isAuth: false,
 }
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action: PayloadAction<IUserInfo>) => {
+      state.isAuth = true
+      state.currentUser = action.payload
+    },
+  },
 })
+
+export const { setUser } = userSlice.actions
