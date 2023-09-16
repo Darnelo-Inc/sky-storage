@@ -2,3 +2,4 @@
 .vscode
 server/config/default.json
 **/.DS_store
+*.drawio
