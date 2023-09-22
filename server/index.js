@@ -12,7 +12,7 @@ app.use(corsMiddleware)
 app.use(express.json())
 app.use("/api/auth", authRouter)
 
-const start = async () => {
+async function start() {
   try {
     await mongoose.connect(dbURL)
 
