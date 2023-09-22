@@ -3,8 +3,16 @@ import Nav from "./components/Header"
 import SignIn from "./components/SignIn"
 import SignUp from "./components/SignUp"
 import Home from "./pages/Home"
+import { useEffect } from "react"
+import { useLazyAuthQuery } from "./api/authApi"
 
 const App = () => {
+  const [auth] = useLazyAuthQuery()
+
+  useEffect(() => {
+    auth("")
+  }, [])
+
   return (
     <>
       <Nav></Nav>
