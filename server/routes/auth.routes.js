@@ -4,6 +4,7 @@ const bcryptjs = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const { check, validationResult } = require("express-validator")
 const config = require("../config/default.json")
+const authMiddleware = require("../middleware/auth.middleware")
 
 const router = Router()
 const secretKey = config.secretKey
@@ -45,42 +46,57 @@ router.post(
   }
 )
 
-router.post(
-  "/signIn",
+router.post("/signIn", async (req, res) => {
+  try {
+    const { email, password } = req.body
 
-  async (req, res) => {
-    try {
-      const { email, password } = req.body
-
-      const user = await User.findOne({ email })
-      if (!user) {
-        return res.status(404).json({ message: "Invalid username or password" })
-      }
-
-      const isPasswordValid = await bcryptjs.compareSync(
-        password,
-        user.password
-      )
-      if (!isPasswordValid) {
-        return res.status(404).json({ message: "Invalid username or password" })
-      }
-
-      const token = jwt.sign({ id: user.id }, secretKey, { expiresIn: "1h" })
-      return res.json({
-        token,
-        user: {
-          id: user.id,
-          email: user.email,
-          disk_space: user.disk_space,
-          used_space: user.used_space,
-          avatar: user.avatar,
-        },
-      })
-    } catch (error) {
-      console.log(error)
-      res.send({ message: "500 Internal Server Error" })
+    const user = await User.findOne({ email })
+    if (!user) {
+      return res.status(404).json({ message: "Invalid username or password" })
     }
+
+    const isPasswordValid = await bcryptjs.compareSync(password, user.password)
+    if (!isPasswordValid) {
+      return res.status(404).json({ message: "Invalid username or password" })
+    }
+
+    const token = jwt.sign({ id: user.id }, secretKey, { expiresIn: "1h" })
+
+    return res.json({
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        disk_space: user.disk_space,
+        used_space: user.used_space,
+        avatar: user.avatar,
+      },
+    })
+  } catch (error) {
+    console.log(error)
+    res.send({ message: "500 Internal Server Error" })
   }
-)
+})
+
+router.get("/", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.user.id })
+    const token = jwt.sign({ id: user.id }, secretKey, { expiresIn: "1h" })
+
+    return res.json({
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        disk_space: user.disk_space,
+        used_space: user.used_space,
+        avatar: user.avatar,
+      },
+    })
+  } catch (error) {
+    console.log(error)
+    res.send({ message: "500 Internal Server Error" })
+  }
+})
 
 module.exports = router
