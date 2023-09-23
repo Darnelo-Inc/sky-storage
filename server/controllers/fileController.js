@@ -10,14 +10,15 @@ class FileController {
 
       const parentFile = await File.findOne({ _id: parent })
 
-      if (!parentFile) {
-        file.path = name
-        await fileService.createDir(file)
-      } else {
+      if (parentFile) {
         file.path = parentFile.path + "\\" + file.name
         await fileService.createDir(file)
+
         parentFile.children.push(file._id)
         await parentFile.save()
+      } else {
+        file.path = name
+        await fileService.createDir(file)
       }
       await file.save()
 

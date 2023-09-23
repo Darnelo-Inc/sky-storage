@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken")
 const { check, validationResult } = require("express-validator")
 const config = require("../config/default.json")
 const authMiddleware = require("../middleware/auth.middleware")
+const fileService = require("../services/fileService")
+const File = require("../models/File")
 
 const router = Router()
 const secretKey = config.secretKey
@@ -35,8 +37,10 @@ router.post(
 
       const hashedPassword = await bcryptjs.hash(password, 5)
 
-      const newUser = new User({ email, password: hashedPassword })
-      await newUser.save()
+      const user = new User({ email, password: hashedPassword })
+      await user.save()
+
+      await fileService.createDir(new File({ user: user.id, name: "" }))
 
       return res.json({ message: "User was successfully created!" })
     } catch (error) {
@@ -94,7 +98,7 @@ router.get("/", authMiddleware, async (req, res) => {
       },
     })
   } catch (error) {
-    console.log(error)
+    console.log(error, "oops")
     res.send({ message: "500 Internal Server Error" })
   }
 })
