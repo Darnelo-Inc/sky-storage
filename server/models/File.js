@@ -1,4 +1,4 @@
-const { model, Schema, ObjectId, default: mongoose } = require("mongoose")
+const { model, Schema, ObjectId } = require("mongoose")
 
 const File = new Schema({
   name: { type: String, required: true },
@@ -13,4 +13,4 @@ const File = new Schema({
   children: [{ type: ObjectId, ref: "File" }],
 })
 
-module.exports = model("file", File)
+module.exports = model("File", File)

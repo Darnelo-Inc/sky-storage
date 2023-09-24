@@ -4,7 +4,10 @@ const File = require("../models/File")
 
 class FileService {
   createDir(file) {
-    const filePath = path.join(__dirname, `../files/${file.user}/${file.path}`)
+    const filePath = path.join(
+      __dirname,
+      `../files/${file.user_id}/${file.path}`
+    )
 
     return new Promise((resolve, reject) => {
       try {

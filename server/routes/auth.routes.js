@@ -40,7 +40,7 @@ router.post(
       const user = new User({ email, password: hashedPassword })
       await user.save()
 
-      await fileService.createDir(new File({ user: user.id, name: "" }))
+      await fileService.createDir(new File({ user_id: user.id, name: "" }))
 
       return res.json({ message: "User was successfully created!" })
     } catch (error) {
