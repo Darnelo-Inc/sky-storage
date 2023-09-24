@@ -5,13 +5,18 @@ const User = require("../models/User")
 class FileController {
   async createDir(req, res) {
     try {
-      const { name, type, parent } = req.body
-      const file = new File({ name, type, parent, user: user.id })
+      const { name, type, parent_id } = req.body
+      const file = new File({
+        name,
+        type,
+        parent_id,
+        user_id: req.user.id,
+      })
 
-      const parentFile = await File.findOne({ _id: parent })
+      const parentFile = await File.findOne({ _id: parent_id })
 
       if (parentFile) {
-        file.path = parentFile.path + "\\" + file.name
+        file.path = `${parentFile.path}/${file.name}`
         await fileService.createDir(file)
 
         parentFile.children.push(file._id)

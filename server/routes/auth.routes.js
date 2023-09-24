@@ -22,7 +22,6 @@ router.post(
   async (req, res) => {
     try {
       const errors = validationResult(req)
-      console.log(errors)
 
       if (errors.errors.length) {
         return res.status(422).json({ message: "Validation error", errors })
@@ -98,7 +97,6 @@ router.get("/", authMiddleware, async (req, res) => {
       },
     })
   } catch (error) {
-    console.log(error, "oops")
     res.send({ message: "500 Internal Server Error" })
   }
 })

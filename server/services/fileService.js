@@ -18,7 +18,7 @@ class FileService {
           return reject({ message: "File has already exists" })
         }
       } catch (error) {
-        return reject({ message: "Something went wrong" })
+        return reject(error)
       }
     })
   }

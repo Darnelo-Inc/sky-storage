@@ -26,8 +26,4 @@ async function start() {
   }
 }
 
-// app.get("/", (req, res) => {
-//   res.send("Hello World!")
-// })
-
 start()
