@@ -3,7 +3,6 @@ import Form from "./ui/Form"
 import Button from "./ui/Button"
 import { AuthOnChange, IAuth } from "../models/auth"
 import { useSignUpMutation } from "../api/authApi"
-import { useActions } from "../hooks/useActions"
 
 const SignUp: FC = () => {
   const [data, setData] = useState<IAuth>({ email: "", password: "" })

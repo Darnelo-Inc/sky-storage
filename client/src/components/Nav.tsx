@@ -13,7 +13,9 @@ const Nav: FC = () => {
     <nav>
       {isAuth ? (
         <Button type="button" className="btn btn--nav" onClick={() => logout()}>
-          Log Out
+          <Link className="link-reset" to="/signIn">
+            Log Out
+          </Link>
         </Button>
       ) : (
         <>

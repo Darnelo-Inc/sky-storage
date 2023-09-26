@@ -5,6 +5,7 @@ import { IAuth, AuthOnChange } from "../models/auth"
 import { useSignInMutation } from "../api/authApi"
 import { IUserInfo } from "../models/user"
 import { useActions } from "../hooks/useActions"
+import { useNavigate, useNavigation } from "react-router-dom"
 
 const SignIn: FC = () => {
   const [data, setData] = useState<IAuth>({ email: "", password: "" })
@@ -16,9 +17,14 @@ const SignIn: FC = () => {
 
   const [signIn] = useSignInMutation()
 
+  const nav = useNavigate()
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    await signIn(data)
+    const res = await signIn(data)
+    if (res.hasOwnProperty("data")) {
+      nav("/")
+    }
     setData({ email: "", password: "" })
   }
 

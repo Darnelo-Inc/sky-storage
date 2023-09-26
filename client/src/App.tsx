@@ -5,9 +5,12 @@ import SignUp from "./components/SignUp"
 import Home from "./pages/Home"
 import { useEffect } from "react"
 import { useLazyAuthQuery } from "./api/authApi"
+import { useAppSelector } from "./hooks/redux"
+import { selectIsAuth } from "./store/selectors/userSelector"
 
 const App = () => {
   const [auth] = useLazyAuthQuery()
+  const isAuth = useAppSelector(selectIsAuth)
 
   useEffect(() => {
     auth("")
@@ -16,11 +19,16 @@ const App = () => {
   return (
     <>
       <Nav></Nav>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signIn" element={<SignIn />} />
-        <Route path="/signUp" element={<SignUp />} />
-      </Routes>
+      {isAuth ? (
+        <Routes>
+          <Route index path="/" element={<Home />} />
+        </Routes>
+      ) : (
+        <Routes>
+          <Route path="/signUp" element={<SignUp />} />
+          <Route index path="/signIn" element={<SignIn />} />
+        </Routes>
+      )}
     </>
   )
 }
