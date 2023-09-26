@@ -13,9 +13,9 @@ class FileService {
       try {
         if (!fs.existsSync(filePath)) {
           fs.mkdirSync(filePath)
-          return resolve({ message: "File was successfully created" })
+          return resolve({ message: "Dir was successfully created" })
         } else {
-          return reject({ message: "File has already exists" })
+          return reject({ message: "Dir has already exists" })
         }
       } catch (error) {
         return reject(error)
