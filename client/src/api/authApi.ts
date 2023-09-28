@@ -8,10 +8,6 @@ interface AuthRequest {
   password: string
 }
 
-interface AuthResponse {
-  data: any
-}
-
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/api/auth/" }),

@@ -1,5 +1,5 @@
 .header {
-  min-height: $header-height;
+  max-height: $header-height;
   padding: 1rem 0;
 
   background-color: $white;
@@ -14,11 +14,14 @@
 .header__logo {
   display: flex;
   justify-content: center;
+  margin-left: 2.5rem;
 
   text-decoration: none;
 }
 
 .header__title {
+  margin-left: 4.57rem;
+
   color: $black;
 }
 

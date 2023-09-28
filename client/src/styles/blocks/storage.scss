@@ -1,0 +1,19 @@
+.storage {
+  display: block;
+  width: 100%;
+  height: calc(100vh - $header-height - $main-offset);
+  margin-top: 5rem;
+
+  background: url("../../images/bg.jpg") fixed no-repeat;
+  background-size: cover;
+}
+
+.storage__inner {
+  width: 142rem;
+  // width: 120rem;
+  height: 92.1rem;
+
+  background-color: $bg-blue;
+  border-radius: $main-radius;
+  box-shadow: .4rem .4rem .4rem 0 rgba(0, 0, 0, 0.25);
+}

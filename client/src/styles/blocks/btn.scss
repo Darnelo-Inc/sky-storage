@@ -11,25 +11,20 @@
   &--nav {
     position: relative;
 
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -.4rem;
-      left: 0;
-      z-index: 1;
+    width: 13.1rem;
+    height: 3.6rem;
 
-      height: .2rem;
-      width: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: $white;
 
-      background-color: $black;
+    background-color: $orange;
+    border-radius: $btn-radius-nav;
 
-      transition: width .2s ease-in-out;
-    }
+    transition: box-shadow .1s ease-in-out;
 
     &:hover {
-      &::after {
-        width: 100%;
-      }
+      box-shadow: .07rem .07rem .5rem rgba(0, 0, 0, .5);
     }
   }
 
