@@ -12,12 +12,19 @@
 
 html {
   font-size: 62.5%;
+  // font-size: 40%;
+}
+
+@font-face {
+  font-family: 'PoetsenOne';
+  src: url('../assets/fonts/PoetsenOne-Regular.ttf');
+  font-weight: 400;
 }
 
 body {
   margin: 0;
 
-  font-family: $sans;
+  font-family: $poetsen;
   font-size: 1.5rem;
   color: $black;
 
