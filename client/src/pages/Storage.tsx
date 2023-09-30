@@ -16,7 +16,17 @@ const Storage: FC = () => {
   return (
     <main className="storage">
       <div className="container">
-        <div className="storage__inner"></div>
+        <div className="storage__inner">
+          <header className="storage__header">header</header>
+          <main className="storage__main">
+            <aside className="storage__aside">aside</aside>
+            <div className="storage__content">
+              {files.map((file) => (
+                <File key={file._id} file={file} />
+              ))}
+            </div>
+          </main>
+        </div>
       </div>
     </main>
   )
