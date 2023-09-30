@@ -11,6 +11,7 @@ class FileController {
         type,
         parent_id,
         user_id: req.user.id,
+        creation_date: new Date(),
       })
 
       const parentFile = await File.findOne({ _id: parent_id })
