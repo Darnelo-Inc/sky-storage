@@ -1,0 +1,19 @@
+.file {
+  // max-height: 6rem;
+}
+
+.file__name {
+  grid-column: span 5;
+  padding-left: 10.5rem;
+}
+
+.file__icon {
+  position: absolute;
+}
+
+.file__spacing,
+.file__type,
+.file__date,
+.file__size {
+  grid-column: span 1;
+}

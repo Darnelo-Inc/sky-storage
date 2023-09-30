@@ -1,19 +1,53 @@
 .storage {
+  position: relative;
+
   display: block;
   width: 100%;
-  height: calc(100vh - $header-height - $main-offset);
-  margin-top: 5rem;
+  min-height: calc(100vh - $header-height);
 
-  background: url("../../images/bg.jpg") fixed no-repeat;
+
+
+  background: url("../../images/bg.jpg") center no-repeat;
   background-size: cover;
 }
 
 .storage__inner {
-  width: 142rem;
-  // width: 120rem;
-  height: 92.1rem;
+  position: relative;
+  top: calc($main-offset);
+
+  display: flex;
+  flex-direction: column;
+  min-height: 92.1rem;
 
   background-color: $bg-blue;
   border-radius: $main-radius;
-  box-shadow: .4rem .4rem .4rem 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 1px 1px 21px 4px rgba(0, 0, 0, 0.25);
+}
+
+.storage__header {
+  min-height: 10.15rem;
+  padding: 2rem;
+
+  border-bottom: .1rem solid $white;
+}
+
+.storage__main {
+  display: flex;
+  flex: 1;
+}
+
+.storage__aside {
+  flex-basis: 16.67%;
+  padding: 2rem;
+
+  border-right: .1rem solid $white;
+}
+
+.storage__content {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  column-gap: 2rem;
+  grid-template-rows: 6rem;
+  flex: 1;
+  padding: 4rem 0;
 }
