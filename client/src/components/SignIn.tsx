@@ -5,7 +5,7 @@ import { IAuth, AuthOnChange } from "../models/auth"
 import { useSignInMutation } from "../api/authApi"
 import { IUserInfo } from "../models/user"
 import { useActions } from "../hooks/useActions"
-import { useNavigate, useNavigation } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const SignIn: FC = () => {
   const [data, setData] = useState<IAuth>({ email: "", password: "" })

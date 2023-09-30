@@ -4,8 +4,9 @@ import Nav from "./Nav"
 import { Link } from "react-router-dom"
 import { useAppSelector } from "../hooks/redux"
 import { selectIsAuth } from "../store/selectors/userSelector"
+import { HeaderProps } from "../models/header"
 
-const Header: FC = () => {
+const Header: FC<HeaderProps> = ({ isLoading }) => {
   const isAuth = useAppSelector(selectIsAuth)
 
   return (
@@ -18,7 +19,7 @@ const Header: FC = () => {
               <span className="header__sky">Sky</span> Storage
             </h1>
           </Link>
-          <Nav />
+          {!isLoading && <Nav />}
         </div>
       </div>
     </header>

@@ -16,7 +16,7 @@ const Storage: FC = () => {
   return (
     <main className="storage">
       <div className="container">
-        <div className="storage__inner">Content</div>
+        <div className="storage__inner"></div>
       </div>
     </main>
   )

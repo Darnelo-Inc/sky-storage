@@ -24,7 +24,6 @@ export const authApi = createApi({
           const res = await queryFulfilled
           dispatch(setUser(res.data))
         } catch (e) {
-          console.log(e)
           localStorage.removeItem(lsUserTokenKey)
         }
       },
