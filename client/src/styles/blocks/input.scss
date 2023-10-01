@@ -11,5 +11,9 @@
     &:focus {
       outline: none;
     }
+
+    &::placeholder {
+      font-family: $poetsen;
+    }
   }
 }

@@ -17,7 +17,8 @@
     z-index: 1;
 
     display: flex;
-    margin: 0 1.33rem;
+    width: calc($btn-length + 1rem);
+    margin: 0 auto;
 
     border: .1rem solid rgba($black, .8);
     border-radius: $btn-radius-nav;

@@ -2,22 +2,25 @@
   display: inline-block;
   margin: 0 1.33rem;
 
-  font-size: 1.8rem;
+  font-family: $baloo;
+  font-size: 2rem;
+  font-weight: 600;
 
   background: none;
   border: none;
   cursor: pointer;
 
   &--nav,
-  &--create {
+  &--create,
+  &--back {
     position: relative;
     top: 0;
 
-    width: 13.1rem;
+    width: $btn-length;
     height: 3.6rem;
 
-    font-size: 1.8rem;
-    font-weight: 700;
+    font-size: 1.9rem;
+    font-weight: 600;
     color: $white;
 
     background-color: $orange;
@@ -31,8 +34,12 @@
     }
   }
 
+  &--back {
+    width: 8rem;
+  }
+
   &--create {
-    margin: 0 1.5rem;
+    width: calc($btn-length + 1rem);
 
     &--active {
       top: -1.4rem;
