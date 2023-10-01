@@ -1,16 +1,13 @@
+import { AuthRequest } from "../models/auth"
 import { setUser } from "../store/reducers/userSlice"
 import { lsUserTokenKey } from "../utils/lsKeys"
+import { AUTH_URL } from "../utils/urls"
 import { IUserResponse } from "./../models/user"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
-interface AuthRequest {
-  email: string
-  password: string
-}
-
 export const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/api/auth/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: AUTH_URL }),
   endpoints: (build) => ({
     auth: build.query<any, any>({
       query: () => ({

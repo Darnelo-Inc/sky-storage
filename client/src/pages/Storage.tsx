@@ -7,11 +7,12 @@ import File from "../components/File"
 const Storage: FC = () => {
   const currentDir = useAppSelector(selectCurrentDir)
   const files = useAppSelector(selectFiles)
+
   const [getFiles] = useLazyGetFilesQuery()
 
   useEffect(() => {
     getFiles(currentDir)
-  }, [currentDir, getFiles])
+  }, [getFiles, currentDir])
 
   return (
     <main className="storage">

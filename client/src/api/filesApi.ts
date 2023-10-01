@@ -3,10 +3,11 @@ import { lsUserTokenKey } from "../utils/lsKeys"
 import { RequestType } from "../models/files"
 import { IFile } from "../models/file"
 import { setFiles } from "../store/reducers/fileSlice"
+import { FILE_URL } from "../utils/urls"
 
 export const filesApi = createApi({
   reducerPath: "filesApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/api/files" }),
+  baseQuery: fetchBaseQuery({ baseUrl: FILE_URL }),
   endpoints: (build) => ({
     getFiles: build.query<IFile[], RequestType>({
       query: (dir_id) => ({
