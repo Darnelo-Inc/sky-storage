@@ -15,3 +15,8 @@ export interface IFile {
 export interface FileProps {
   file: IFile
 }
+
+export interface ICreateFile {
+  name: string
+  parent_id?: number
+}

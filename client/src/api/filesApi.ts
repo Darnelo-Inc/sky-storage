@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react"
 import { lsUserTokenKey } from "../utils/lsKeys"
 import { RequestType } from "../models/files"
-import { IFile } from "../models/file"
-import { setFiles } from "../store/reducers/fileSlice"
+import { ICreateFile, IFile } from "../models/file"
+import { addFile, setFiles } from "../store/reducers/fileSlice"
 import { FILE_URL } from "../utils/urls"
 
 export const filesApi = createApi({
@@ -25,7 +25,29 @@ export const filesApi = createApi({
         }
       },
     }),
+
+    createDir: build.mutation<IFile, ICreateFile>({
+      query: ({ name, parent_id }) => ({
+        url: "",
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(lsUserTokenKey)}`,
+        },
+        body: parent_id
+          ? { name, parent_id, type: "dir" }
+          : { name, type: "dir" },
+      }),
+
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const res = await queryFulfilled
+          dispatch(addFile(res.data))
+        } catch (e) {
+          console.log(e)
+        }
+      },
+    }),
   }),
 })
 
-export const { useLazyGetFilesQuery } = filesApi
+export const { useLazyGetFilesQuery, useCreateDirMutation } = filesApi

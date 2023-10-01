@@ -9,7 +9,7 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({ baseUrl: AUTH_URL }),
   endpoints: (build) => ({
-    auth: build.query<any, any>({
+    auth: build.query<IUserResponse, string>({
       query: () => ({
         url: "",
         headers: {

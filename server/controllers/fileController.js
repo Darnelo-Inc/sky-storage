@@ -11,7 +11,7 @@ class FileController {
         type,
         parent_id,
         user_id: req.user.id,
-        creation_date: new Date(),
+        creation_date: Date.now(),
       })
 
       const parentFile = await File.findOne({ _id: parent_id })
@@ -34,7 +34,7 @@ class FileController {
     }
   }
 
-  async fetchFiles(req, res) {
+  async getFiles(req, res) {
     try {
       const files = await File.find({
         user_id: req.user.id,
