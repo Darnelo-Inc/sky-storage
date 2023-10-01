@@ -3,13 +3,10 @@ import Form from "./ui/Form"
 import Button from "./ui/Button"
 import { IAuth, AuthOnChange } from "../models/auth"
 import { useSignInMutation } from "../api/authApi"
-import { IUserInfo } from "../models/user"
-import { useActions } from "../hooks/useActions"
 import { useNavigate } from "react-router-dom"
 
 const SignIn: FC = () => {
   const [data, setData] = useState<IAuth>({ email: "", password: "" })
-  const { setUser } = useActions()
 
   const onChange: AuthOnChange = (e, type) => {
     setData((prevData) => ({ ...prevData, [type]: e.target.value }))

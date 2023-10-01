@@ -7,7 +7,7 @@
 
 
 
-  background: url("../../images/bg.jpg") center no-repeat;
+  background: url("../../assets/images/bg.jpg") center no-repeat;
   background-size: cover;
 }
 
@@ -44,10 +44,6 @@
 }
 
 .storage__content {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  column-gap: 2rem;
-  grid-template-rows: 6rem;
   flex: 1;
   padding: 4rem 0;
 }

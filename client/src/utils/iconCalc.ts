@@ -1,16 +1,15 @@
-import dir__icon from "../assets/images/icons/dir.png"
+import dir__icon from "../assets/images/icons/dir.svg"
+import music__icon from "../assets/images/icons/music.svg"
+import video__icon from "../assets/images/icons/video.svg"
+import txt__icon from "../assets/images/icons/txt.svg"
 
 type IconMap = {
-  [key in string]: any
-}
-
-const enum TYPES {
-  dir,
-  mp3,
-  mp4,
-  txt,
+  [key in string]: string
 }
 
 export const ICONS: IconMap = {
-  [TYPES.dir]: dir__icon,
+  dir: dir__icon,
+  mp3: music__icon,
+  mp4: video__icon,
+  txt: txt__icon,
 }

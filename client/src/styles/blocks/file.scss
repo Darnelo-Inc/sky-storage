@@ -1,14 +1,39 @@
 .file {
-  // max-height: 6rem;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  column-gap: 2rem;
+  grid-template-rows: 6rem;
+
+  transition: background .18s ease-in-out;
+
+  &:hover {
+    background-color: rgba($white, .27);
+    cursor: pointer;
+  }
 }
 
 .file__name {
+  position: relative;
+
   grid-column: span 5;
   padding-left: 10.5rem;
 }
 
 .file__icon {
   position: absolute;
+  left: 4.3rem;
+
+  &--dir,
+  &--mp3,
+  &--mp4 {
+    width: 4.2rem;
+  }
+
+  &--txt {
+    left: 4.9rem;
+
+    width: 3.353rem;
+  }
 }
 
 .file__spacing,
@@ -16,4 +41,19 @@
 .file__date,
 .file__size {
   grid-column: span 1;
+}
+
+.file__name,
+.file__spacing,
+.file__type,
+.file__date,
+.file__size {
+  display: flex;
+  align-items: center;
+}
+
+.file__type,
+.file__date,
+.file__size {
+  justify-content: center;
 }

@@ -9,7 +9,7 @@ export interface IFile {
   type: string
   size: number
   path: string
-  creation_date: Date
+  creation_date: number
 }
 
 export interface FileProps {
