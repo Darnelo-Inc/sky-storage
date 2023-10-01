@@ -3,6 +3,7 @@ import { useAppSelector } from "../hooks/redux"
 import { selectCurrentDir, selectFiles } from "../store/selectors/fileSelector"
 import { useLazyGetFilesQuery } from "../api/filesApi"
 import File from "../components/File"
+import StorageHeader from "../components/StorageHeader"
 
 const Storage: FC = () => {
   const currentDir = useAppSelector(selectCurrentDir)
@@ -18,9 +19,7 @@ const Storage: FC = () => {
     <main className="storage">
       <div className="container">
         <div className="storage__inner">
-          <header className="storage__header">
-            <h2>header</h2>
-          </header>
+          <StorageHeader />
           <main className="storage__main">
             <aside className="storage__aside">
               <h2>aside</h2>

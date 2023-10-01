@@ -1,0 +1,15 @@
+.input {
+  position: relative;
+
+  &--createDir {
+    width: 75%;
+    padding: .5rem .8rem;
+
+    background: $white;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

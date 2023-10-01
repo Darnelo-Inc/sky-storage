@@ -25,8 +25,11 @@
 }
 
 .storage__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   min-height: 10.15rem;
-  padding: 2rem;
+  padding: 2rem 4rem;
 
   border-bottom: .1rem solid $white;
 }
@@ -46,4 +49,8 @@
 .storage__content {
   flex: 1;
   padding: 4rem 0;
+}
+
+.storage__header__createDir {
+  position: relative;
 }

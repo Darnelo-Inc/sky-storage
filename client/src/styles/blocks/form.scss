@@ -8,6 +8,35 @@
 
   background-color: $white;
   border-radius: $btn-radius;
+
+  &--createDir {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1.8rem;
+    z-index: 1;
+
+    display: flex;
+    margin: 0 1.33rem;
+
+    border: .1rem solid rgba($black, .8);
+    border-radius: $btn-radius-nav;
+    opacity: 1;
+    overflow: hidden;
+
+    transition: opacity .4s ease-in-out, bottom .4s ease-in-out;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &--hidden {
+    bottom: 0;
+    z-index: -1;
+
+    opacity: 0;
+  }
 }
 
 .form__title {
