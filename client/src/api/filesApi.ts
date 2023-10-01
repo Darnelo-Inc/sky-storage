@@ -11,7 +11,7 @@ export const filesApi = createApi({
   endpoints: (build) => ({
     getFiles: build.query<IFile[], RequestType>({
       query: (dir_id) => ({
-        url: `${dir_id ? `?parent=${dir_id}` : ""}`,
+        url: `${dir_id ? `?parent_id=${dir_id}` : ""}`,
         headers: {
           Authorization: `Bearer ${localStorage.getItem(lsUserTokenKey)}`,
         },

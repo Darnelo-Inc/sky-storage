@@ -3,10 +3,25 @@ import { FileProps } from "../models/file"
 import { sizeCalc } from "../utils/sizeCalc"
 import { dateCalc } from "../utils/dateCalc"
 import { ICONS } from "../utils/iconCalc"
+import { useActions } from "../hooks/useActions"
+import { useAppSelector } from "../hooks/redux"
+import { selectCurrentDir } from "../store/selectors/fileSelector"
 
 const File: FC<FileProps> = ({ file }) => {
+  const currentDir = useAppSelector(selectCurrentDir)
+
+  const { setCurrentDir, pushDirStack } = useActions()
+
+  const openDirHandler = () => {
+    currentDir && pushDirStack(currentDir)
+    setCurrentDir(file._id)
+  }
+
   return (
-    <div className="file">
+    <div
+      className="file"
+      onClick={file.type === "dir" ? () => openDirHandler() : () => {}}
+    >
       <div className="file__name">
         <img
           src={ICONS[file.type]}

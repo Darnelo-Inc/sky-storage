@@ -1,1 +1,1 @@
-export type RequestType = string | null
+export type RequestType = number | null

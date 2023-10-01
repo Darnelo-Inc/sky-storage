@@ -1,6 +1,7 @@
 export interface IFileState {
   files: IFile[]
-  currentDir: string | null
+  currentDir: number | null
+  dirStack: number[]
 }
 
 export interface IFile {
@@ -18,5 +19,5 @@ export interface FileProps {
 
 export interface ICreateFile {
   name: string
-  parent_id?: number
+  parent_id: number | null
 }
