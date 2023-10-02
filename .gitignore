@@ -1,5 +1,5 @@
 */node_modules
 .vscode
-server/config/default.json
+.env
 **/.DS_store
 *.drawio

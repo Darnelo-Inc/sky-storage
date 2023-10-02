@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken")
-const config = require("config")
+require("dotenv").config()
 
-const secretKey = config.secretKey
+const secretKey = process.env.secretKey
 
 function auth(req, res, next) {
   if (req.method === "OPTIONS") {

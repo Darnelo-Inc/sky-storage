@@ -1,13 +1,13 @@
 const express = require("express")
 const mongoose = require("mongoose")
-const config = require("config")
+require("dotenv").config()
 const authRouter = require("../server/routes/auth.routes")
 const fileRouter = require("../server/routes/file.routes")
 const corsMiddleware = require("./middleware/cors.middleware")
 
 const app = express()
-const PORT = config.get("serverPort")
-const dbURL = config.get("dbURL")
+const PORT = process.env.serverPort
+const dbURL = process.env.dbURL
 
 app.use(corsMiddleware)
 app.use(express.json())

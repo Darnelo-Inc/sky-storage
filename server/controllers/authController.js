@@ -1,9 +1,9 @@
 const bcryptjs = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+require("dotenv").config()
 const File = require("../models/File")
 const User = require("../models/User")
 const fileService = require("../services/fileService")
-const config = require("../config/default.json")
 
 class AuthController {
   async signUp(req, res) {
@@ -46,7 +46,7 @@ class AuthController {
         return res.status(404).json({ message: "Invalid username or password" })
       }
 
-      const token = jwt.sign({ id: user.id }, config.secretKey, {
+      const token = jwt.sign({ id: user.id }, process.env.secretKey, {
         expiresIn: "1h",
       })
 
@@ -69,7 +69,7 @@ class AuthController {
   async auth(req, res) {
     try {
       const user = await User.findOne({ _id: req.user.id })
-      const token = jwt.sign({ id: user.id }, config.secretKey, {
+      const token = jwt.sign({ id: user.id }, process.env.secretKey, {
         expiresIn: "1h",
       })
 
