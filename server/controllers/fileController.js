@@ -1,6 +1,5 @@
 const fileService = require("../services/fileService")
 const File = require("../models/File")
-const User = require("../models/User")
 
 class FileController {
   async createDir(req, res) {
