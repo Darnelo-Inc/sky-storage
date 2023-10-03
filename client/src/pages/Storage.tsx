@@ -1,9 +1,9 @@
 import { FC, useEffect } from "react"
-import { useAppSelector } from "../hooks/redux"
-import { selectCurrentDir, selectFiles } from "../store/selectors/fileSelector"
 import { useLazyGetFilesQuery } from "../api/filesApi"
 import File from "../components/File"
 import StorageHeader from "../components/StorageHeader"
+import { useAppSelector } from "../hooks/redux"
+import { selectCurrentDir, selectFiles } from "../store/selectors/fileSelector"
 
 const Storage: FC = () => {
   const currentDir = useAppSelector(selectCurrentDir)

@@ -1,7 +1,7 @@
 import dir__icon from "../assets/images/icons/dir.svg"
 import music__icon from "../assets/images/icons/music.svg"
-import video__icon from "../assets/images/icons/video.svg"
 import txt__icon from "../assets/images/icons/txt.svg"
+import video__icon from "../assets/images/icons/video.svg"
 
 type IconMap = {
   [key in string]: string

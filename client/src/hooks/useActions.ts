@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux"
-import { fileSlice } from "./../store/reducers/fileSlice"
-import { userSlice } from "./../store/reducers/userSlice"
 import { bindActionCreators } from "@reduxjs/toolkit"
+import { fileSlice } from "../store/reducers/fileSlice"
+import { userSlice } from "../store/reducers/userSlice"
 
 const actions = { ...userSlice.actions, ...fileSlice.actions }
 

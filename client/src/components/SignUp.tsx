@@ -1,8 +1,8 @@
 import { FC, FormEvent, useState } from "react"
-import Form from "./ui/Form"
 import Button from "./ui/Button"
-import { AuthOnChange, IAuth } from "../models/auth"
+import Form from "./ui/Form"
 import { useSignUpMutation } from "../api/authApi"
+import { AuthOnChange, IAuth } from "../models/auth"
 
 const SignUp: FC = () => {
   const [data, setData] = useState<IAuth>({ email: "", password: "" })

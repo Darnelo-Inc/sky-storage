@@ -1,9 +1,9 @@
+require("dotenv").config()
 const express = require("express")
 const mongoose = require("mongoose")
-require("dotenv").config()
+const corsMiddleware = require("./middleware/cors.middleware")
 const authRouter = require("../server/routes/auth.routes")
 const fileRouter = require("../server/routes/file.routes")
-const corsMiddleware = require("./middleware/cors.middleware")
 
 const app = express()
 const PORT = process.env.serverPort

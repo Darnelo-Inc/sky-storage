@@ -1,11 +1,11 @@
 import { FC } from "react"
-import { FileProps } from "../models/file"
-import { sizeCalc } from "../utils/sizeCalc"
-import { dateCalc } from "../utils/dateCalc"
-import { ICONS } from "../utils/iconCalc"
 import { useActions } from "../hooks/useActions"
 import { useAppSelector } from "../hooks/redux"
+import { FileProps } from "../models/file"
 import { selectCurrentDir } from "../store/selectors/fileSelector"
+import { dateCalc } from "../utils/dateCalc"
+import { ICONS } from "../utils/iconCalc"
+import { sizeCalc } from "../utils/sizeCalc"
 
 const File: FC<FileProps> = ({ file }) => {
   const currentDir = useAppSelector(selectCurrentDir)

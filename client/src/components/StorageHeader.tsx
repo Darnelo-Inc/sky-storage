@@ -2,11 +2,11 @@ import { FC, MouseEvent, useState } from "react"
 import Button from "./ui/Button"
 import { useCreateDirMutation } from "../api/filesApi"
 import { useAppSelector } from "../hooks/redux"
+import { useActions } from "../hooks/useActions"
 import {
   selectCurrentDir,
   selectDirStack,
 } from "../store/selectors/fileSelector"
-import { useActions } from "../hooks/useActions"
 
 const StorageHeader: FC = () => {
   const [createBtnisActive, setCreateBtnisActive] = useState<boolean>(false)

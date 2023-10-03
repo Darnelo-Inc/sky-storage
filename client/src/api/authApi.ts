@@ -1,9 +1,9 @@
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { AuthRequest } from "../models/auth"
+import { IUserResponse } from "../models/user"
 import { setUser } from "../store/reducers/userSlice"
 import { lsUserTokenKey } from "../utils/lsKeys"
 import { AUTH_URL } from "../utils/urls"
-import { IUserResponse } from "./../models/user"
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const authApi = createApi({
   reducerPath: "authApi",

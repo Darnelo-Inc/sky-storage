@@ -1,10 +1,10 @@
 import { FC } from "react"
-import logo from "../assets/images/logo.svg"
-import Nav from "./Nav"
 import { Link } from "react-router-dom"
+import Nav from "./Nav"
+import logo from "../assets/images/logo.svg"
 import { useAppSelector } from "../hooks/redux"
-import { selectIsAuth } from "../store/selectors/userSelector"
 import { HeaderProps } from "../models/header"
+import { selectIsAuth } from "../store/selectors/userSelector"
 
 const Header: FC<HeaderProps> = ({ isLoading }) => {
   const isAuth = useAppSelector(selectIsAuth)

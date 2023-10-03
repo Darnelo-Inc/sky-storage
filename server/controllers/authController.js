@@ -1,6 +1,6 @@
 const bcryptjs = require("bcryptjs")
-const jwt = require("jsonwebtoken")
 require("dotenv").config()
+const jwt = require("jsonwebtoken")
 const File = require("../models/File")
 const User = require("../models/User")
 const fileService = require("../services/fileService")

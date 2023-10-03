@@ -1,9 +1,9 @@
 import { FC, FormEvent, useState } from "react"
-import Form from "./ui/Form"
-import Button from "./ui/Button"
-import { IAuth, AuthOnChange } from "../models/auth"
-import { useSignInMutation } from "../api/authApi"
 import { useNavigate } from "react-router-dom"
+import Button from "./ui/Button"
+import Form from "./ui/Form"
+import { useSignInMutation } from "../api/authApi"
+import { IAuth, AuthOnChange } from "../models/auth"
 
 const SignIn: FC = () => {
   const [data, setData] = useState<IAuth>({ email: "", password: "" })

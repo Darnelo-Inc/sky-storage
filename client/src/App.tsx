@@ -1,12 +1,12 @@
+import { useLayoutEffect } from "react"
 import { Route, Routes } from "react-router-dom"
+import { useLazyAuthQuery } from "./api/authApi"
 import Header from "./components/Header"
 import SignIn from "./components/SignIn"
 import SignUp from "./components/SignUp"
-import { useLayoutEffect } from "react"
-import { useLazyAuthQuery } from "./api/authApi"
 import { useAppSelector } from "./hooks/redux"
-import { selectIsAuth } from "./store/selectors/userSelector"
 import Storage from "./pages/Storage"
+import { selectIsAuth } from "./store/selectors/userSelector"
 
 const App = () => {
   const [auth, { isLoading }] = useLazyAuthQuery()

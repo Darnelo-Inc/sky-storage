@@ -1,8 +1,8 @@
 import { FC } from "react"
-import Button from "./ui/Button"
 import { Link } from "react-router-dom"
-import { useLogout } from "../hooks/useLogout"
+import Button from "./ui/Button"
 import { useAppSelector } from "../hooks/redux"
+import { useLogout } from "../hooks/useLogout"
 import { selectIsAuth } from "../store/selectors/userSelector"
 
 const Nav: FC = () => {
