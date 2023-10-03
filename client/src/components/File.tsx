@@ -1,6 +1,6 @@
 import { FC } from "react"
-import { useActions } from "../hooks/useActions"
 import { useAppSelector } from "../hooks/redux"
+import { useActions } from "../hooks/useActions"
 import { FileProps } from "../models/file"
 import { selectCurrentDir } from "../store/selectors/fileSelector"
 import { dateCalc } from "../utils/dateCalc"

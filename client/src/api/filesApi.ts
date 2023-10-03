@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react"
-import { RequestType } from "../models/files"
 import { ICreateFile, IFile } from "../models/file"
+import { RequestType } from "../models/files"
 import { addFile, setFiles } from "../store/reducers/fileSlice"
 import { lsUserTokenKey } from "../utils/lsKeys"
 import { FILE_URL } from "../utils/urls"
