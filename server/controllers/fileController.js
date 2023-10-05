@@ -55,7 +55,7 @@ class FileController {
 
       const parent = await File.findOne({
         user_id: req.user.id,
-        _id: req.body.parent,
+        _id: req.body.parent_id,
       })
 
       const user = await User.findOne({ _id: req.user.id })

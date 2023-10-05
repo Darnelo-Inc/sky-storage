@@ -12,4 +12,5 @@ export const ICONS: IconMap = {
   mp3: music__icon,
   mp4: video__icon,
   txt: txt__icon,
+  pages: txt__icon,
 }

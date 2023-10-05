@@ -1,6 +1,6 @@
-import { FC, MouseEvent, useState } from "react"
+import { ChangeEvent, FC, FormEvent, MouseEvent, useState } from "react"
 import Button from "./ui/Button"
-import { useCreateDirMutation } from "../api/filesApi"
+import { useCreateDirMutation, useUploadFileMutation } from "../api/filesApi"
 import { useAppSelector } from "../hooks/redux"
 import { useActions } from "../hooks/useActions"
 import {
@@ -18,6 +18,7 @@ const StorageHeader: FC = () => {
   const dirStack = useAppSelector(selectDirStack)
 
   const [createDir] = useCreateDirMutation()
+  const [uploadFile] = useUploadFileMutation()
 
   const backHandler = () => {
     const popped = dirStack.at(-1)
@@ -39,6 +40,14 @@ const StorageHeader: FC = () => {
     e.stopPropagation()
   }
 
+  const uploadFileHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files || new FileList()
+
+    for (let i = 0; i < files.length; i++) {
+      uploadFile({ file: files.item(i), parent_id: currentDir })
+    }
+  }
+
   return (
     <header className="storage__header">
       <div className="storage__btns">
@@ -49,6 +58,19 @@ const StorageHeader: FC = () => {
         >
           Back
         </Button>
+
+        <form action="">
+          <label htmlFor="uploadFile" className="btn  btn--upload">
+            Upload file
+          </label>
+          <input
+            onChange={(e) => uploadFileHandler(e)}
+            multiple
+            type="file"
+            id="uploadFile"
+            className="storage__upload"
+          />
+        </form>
 
         <div className="storage__header__createDir">
           <Button

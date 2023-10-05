@@ -47,7 +47,38 @@ export const filesApi = createApi({
         }
       },
     }),
+
+    uploadFile: build.mutation<any, any>({
+      query: ({ file, parent_id }) => {
+        const formData = new FormData()
+        formData.append("file", file)
+        if (parent_id) {
+          formData.append("parent", parent_id)
+        }
+        return {
+          url: "/upload",
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(lsUserTokenKey)}`,
+          },
+        }
+      },
+
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const res = await queryFulfilled
+          dispatch(addFile(res.data))
+        } catch (e) {
+          console.log(e)
+        }
+      },
+    }),
   }),
 })
 
-export const { useLazyGetFilesQuery, useCreateDirMutation } = filesApi
+export const {
+  useLazyGetFilesQuery,
+  useCreateDirMutation,
+  useUploadFileMutation,
+} = filesApi

@@ -2,4 +2,10 @@
 .vscode
 .env
 **/.DS_store
+
+
+# Temporary storage
+server/files
+
+# Database models
 *.drawio
