@@ -9,7 +9,7 @@ const Button = ({
   type: "button" | "submit" | "reset"
   children: ReactNode
   className: string
-  onClick?: () => void
+  onClick?: (e?: any) => void
 }) => (
   <button type={type} className={className} onClick={onClick}>
     {children}

@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, MouseEvent, useState } from "react"
+import { ChangeEvent, FC, FormEvent, useState } from "react"
 import Button from "./ui/Button"
 import { useCreateDirMutation, useUploadFileMutation } from "../api/filesApi"
 import { useAppSelector } from "../hooks/redux"
@@ -31,12 +31,14 @@ const StorageHeader: FC = () => {
     setNewDir("")
   }
 
-  const createDirHandler = () => {
+  const createDirHandler = (e: FormEvent<HTMLFormElement>) => {
+    rmDefault(e)
     createDir({ name: newDir, parent_id: currentDir })
     toggleCreateDir()
   }
 
-  const stopProp = (e: MouseEvent<HTMLFormElement>) => {
+  const rmDefault = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     e.stopPropagation()
   }
 
@@ -52,7 +54,7 @@ const StorageHeader: FC = () => {
     <header className="storage__header">
       <div className="storage__btns">
         <Button
-          type={"button"}
+          type="button"
           className={"btn  btn--back"}
           onClick={() => backHandler()}
         >
@@ -90,7 +92,8 @@ const StorageHeader: FC = () => {
               "form--createDir",
               createBtnisActive ? "" : "form--hidden",
             ].join(" ")}
-            onClick={(e) => stopProp(e)}
+            // onClick={(e) => rmDefault(e)}
+            onSubmit={(e) => createDirHandler(e)}
           >
             <input
               className={[
@@ -106,7 +109,7 @@ const StorageHeader: FC = () => {
             <Button
               type="button"
               className="btn--createDir"
-              onClick={() => createDirHandler()}
+              onClick={(e) => createDirHandler(e)}
             >
               ✔
             </Button>
