@@ -12,6 +12,7 @@ export const filesApi = createApi({
     getFiles: build.query<IFile[], RequestType>({
       query: (dir_id) => ({
         url: `${dir_id ? `?parent_id=${dir_id}` : ""}`,
+        method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem(lsUserTokenKey)}`,
         },
@@ -74,6 +75,21 @@ export const filesApi = createApi({
         }
       },
     }),
+
+    downloadFile: build.query<any, any>({
+      query: ({ id }) => ({
+        url: "/download",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(lsUserTokenKey)}`,
+        },
+        params: { id },
+        responseHandler: async (response) => {
+          return window.URL.createObjectURL(await response.blob())
+        },
+        cache: "no-cache",
+      }),
+    }),
   }),
 })
 
@@ -81,4 +97,5 @@ export const {
   useLazyGetFilesQuery,
   useCreateDirMutation,
   useUploadFileMutation,
+  useLazyDownloadFileQuery,
 } = filesApi

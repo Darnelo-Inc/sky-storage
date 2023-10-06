@@ -104,6 +104,29 @@ class FileController {
       return res.status(500).json({ message: "Can't upload file" })
     }
   }
+
+  async downloadFile(req, res) {
+    try {
+      const file = await File.findOne({
+        _id: req.query.id,
+        user_id: req.user.id,
+      })
+
+      const filePath = path.join(
+        __dirname,
+        `../files/${req.user.id}/${file.path}/${file.name}`
+      )
+
+      if (fs.existsSync(filePath)) {
+        return res.download(filePath, file.name)
+      } else {
+        return res.status(400).json({ message: "Download error" })
+      }
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ message: "Can't download file" })
+    }
+  }
 }
 
 module.exports = new FileController()

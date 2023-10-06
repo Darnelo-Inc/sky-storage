@@ -1,4 +1,5 @@
-import { FC } from "react"
+import { FC, MouseEvent } from "react"
+import { useLazyDownloadFileQuery } from "../api/filesApi"
 import { useAppSelector } from "../hooks/redux"
 import { useActions } from "../hooks/useActions"
 import { FileProps } from "../models/file"
@@ -11,16 +12,32 @@ const File: FC<FileProps> = ({ file }) => {
   const currentDir = useAppSelector(selectCurrentDir)
 
   const { setCurrentDir, pushDirStack } = useActions()
+  const [downloadFile] = useLazyDownloadFileQuery()
 
   const openDirHandler = () => {
     currentDir && pushDirStack(currentDir)
     setCurrentDir(file._id)
   }
 
+  const downloadHandler = async (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    const res = await downloadFile({ id: file._id })
+
+    const downloadURL = res.data
+    const link = document.createElement("a")
+    link.href = downloadURL
+    link.download = file.name
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+  }
+
   return (
     <div
       className="file"
-      onClick={file.type === "dir" ? () => openDirHandler() : () => {}}
+      onClick={
+        file.type === "dir" ? () => openDirHandler() : (e) => downloadHandler(e)
+      }
     >
       <div className="file__name">
         <img
