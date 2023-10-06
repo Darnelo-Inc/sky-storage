@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, MouseEvent, useState } from "react"
+import { ChangeEvent, FC, MouseEvent, useState } from "react"
 import Button from "./ui/Button"
 import { useCreateDirMutation, useUploadFileMutation } from "../api/filesApi"
 import { useAppSelector } from "../hooks/redux"
@@ -100,6 +100,7 @@ const StorageHeader: FC = () => {
               ].join(" ")}
               value={newDir}
               onChange={(e) => setNewDir(e.target.value)}
+              id="createDir"
               placeholder="Name new dir"
             />
             <Button

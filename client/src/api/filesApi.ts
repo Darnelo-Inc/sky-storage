@@ -53,7 +53,7 @@ export const filesApi = createApi({
         const formData = new FormData()
         formData.append("file", file)
         if (parent_id) {
-          formData.append("parent", parent_id)
+          formData.append("parent_id", parent_id)
         }
         return {
           url: "/upload",

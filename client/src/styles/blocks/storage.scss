@@ -7,6 +7,7 @@
 
   background: url("../../assets/images/bg.jpg") center no-repeat;
   background-size: cover;
+
 }
 
 .storage__inner {
@@ -19,7 +20,13 @@
 
   background-color: $bg-blue;
   border-radius: $main-radius;
-  box-shadow: 1px 1px 21px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: .1rem .1rem 2.1rem .4rem rgba($black, 0.25);
+
+
+  &--drag {
+    box-shadow: .1rem .1rem 4rem .4rem rgba($black, 0.5);
+    cursor: pointer;
+  }
 }
 
 .storage__header {
