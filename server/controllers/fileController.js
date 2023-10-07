@@ -120,7 +120,7 @@ class FileController {
       if (fs.existsSync(filePath)) {
         return res.download(filePath, file.name)
       } else {
-        return res.status(400).json({ message: "Download error" })
+        return res.status(400).json({ message: "File not exists" })
       }
     } catch (error) {
       console.log(error)
