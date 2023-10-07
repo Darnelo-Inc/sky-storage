@@ -27,14 +27,14 @@ export const authApi = createApi({
     }),
     signUp: build.mutation<any, AuthRequest>({
       query: (body) => ({
-        url: "signUp",
+        url: "/signUp",
         method: "POST",
         body,
       }),
     }),
     signIn: build.mutation<IUserResponse, AuthRequest>({
       query: (body) => ({
-        url: "signIn",
+        url: "/signIn",
         method: "POST",
         body,
       }),
