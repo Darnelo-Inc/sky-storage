@@ -29,8 +29,8 @@ async function start() {
   try {
     await mongoose.connect(dbURL)
 
-    server.listen(443, () => {
-      console.log("Server is running on port 443")
+    server.listen(8080, () => {
+      console.log("Server is running on port 8080")
     })
   } catch (error) {
     console.log(error)
