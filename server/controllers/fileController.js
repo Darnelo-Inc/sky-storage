@@ -66,30 +66,35 @@ class FileController {
 
       user.used_space += file.size
 
-      let filePath
+      let absFilePath
 
       if (parent) {
-        filePath = path.join(
+        absFilePath = path.join(
           __dirname,
           `../files/${user._id}/${parent.path}/${file.name}`
         )
       } else {
-        filePath = path.join(__dirname, `../files/${user._id}/${file.name}`)
+        absFilePath = path.join(__dirname, `../files/${user._id}/${file.name}`)
       }
 
-      if (fs.existsSync(filePath)) {
+      if (fs.existsSync(absFilePath)) {
         return res.status(400).json({ message: "File already exists" })
       }
 
-      file.mv(filePath)
+      file.mv(absFilePath)
 
       const type = file.name.split(".").at(-1)
+      let filePath = "/"
+
+      if (parent) {
+        filePath = parent.path
+      }
 
       const dbFile = new File({
         name: file.name,
         type,
         size: file.size,
-        path: parent?.path,
+        path: filePath,
         parent_id: parent?._id,
         user_id: user._id,
         creation_date: Date.now(),
