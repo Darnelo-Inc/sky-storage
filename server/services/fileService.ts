@@ -5,7 +5,6 @@ import { I_id } from "../models/AuthService"
 import File, { IFile } from "../models/File"
 import {
   ICreateObjDir,
-  ICreateObjFile,
   IDownloadFile,
   IFileInfo,
   IFindFileByIdAndUserId,
@@ -155,41 +154,23 @@ class FileService {
 
     const type = file.name.split(".").at(-1)!
 
-    const filePath = parentDir ? parentDir.path : "/"
+    // const filePath = parentDir ? parentDir.path : "/"
 
-    const dbFile = this.createObjFile({
-      file,
-      type,
-      filePath,
-      parentDir_id: parentDir?._id,
-      user,
-    })
-
-    await user.save()
-
-    return { dbFile }
-  }
-
-  async createObjFile({
-    file,
-    type,
-    filePath,
-    parentDir_id,
-    user,
-  }: ICreateObjFile) {
     const dbFile = new File({
       name: file.name,
       type,
       size: file.size,
-      path: filePath,
-      parent_id: parentDir_id,
+      path: parentDir?.path,
+      parent_id: parentDir?._id,
       user_id: user._id,
       creation_date: Date.now(),
     })
 
     await dbFile.save()
 
-    return dbFile
+    await user.save()
+
+    return { dbFile }
   }
 
   async downloadFile({ _id, user_id }: IDownloadFile) {
