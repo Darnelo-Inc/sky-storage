@@ -12,7 +12,7 @@ const app: Express = express()
 
 const PORT = process.env.serverPort!
 const dbURL = process.env.dbURL!
-const isDev = process.env.NODE_ENV === "development"
+const isProd = process.env.NODE_ENV === "production"
 
 app.use(fileUpload({}))
 app.use(corsMiddleware)
@@ -25,7 +25,7 @@ async function start() {
   try {
     await mongoose.connect(dbURL)
 
-    if (isDev) {
+    if (isProd) {
       const options = {
         cert: fs.readFileSync("/etc/nginx/sslInfo/cert.pem"),
         key: fs.readFileSync("/etc/nginx/sslInfo/key.pem"),
