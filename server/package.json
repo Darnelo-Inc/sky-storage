@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc",
-    "start": "node dist/index.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
+    "start": "NODE_ENV=production tsc && node dist/index.js",
+    "build": "NODE_ENV=production npx tsc",
+    "dev": "NODE_ENV=development concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
   },
   "author": "darnelo-inc",
   "license": "ISC",
+  "type": "commonjs",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.3.1",
@@ -21,7 +22,11 @@
     "mongoose": "^7.5.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.4",
     "@types/express": "^4.17.18",
+    "@types/express-fileupload": "^1.4.2",
+    "@types/jsonwebtoken": "^9.0.3",
+    "@types/mongoose": "^5.11.97",
     "@types/node": "^20.8.3",
     "concurrently": "^8.2.1",
     "nodemon": "^3.0.1",
