@@ -24,6 +24,7 @@ app.use("/api/files", fileRouter)
 async function start() {
   try {
     await mongoose.connect(dbURL)
+    console.log(process.env.NODE_ENV)
 
     if (isProd) {
       const options = {
