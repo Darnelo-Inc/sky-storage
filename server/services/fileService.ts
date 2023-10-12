@@ -119,7 +119,7 @@ class FileService {
     if (!file) {
       return { error: "No file uploaded" }
     }
-    const user = await authService.findUserById({ _id: parent_id })
+    const user = await authService.findUserById({ _id: user_id })
 
     if (!user) {
       return { error: "Something went wrong" }
