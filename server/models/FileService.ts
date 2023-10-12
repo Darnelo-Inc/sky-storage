@@ -35,14 +35,6 @@ export interface IUpdateParentInfo {
   parent_id: ObjectId
 }
 
-export interface ICreateObjFile {
-  file: UploadedFile
-  type: string
-  filePath: string
-  parentDir_id: ObjectId | null
-  user: IUser
-}
-
 export interface IDownloadFile {
   _id: ObjectId
   user_id: ObjectId
