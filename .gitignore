@@ -1,11 +1,16 @@
-*/node_modules
-.vscode
+# Ignore generated files and directories
+node_modules/
+.vscode/
+server/dist/
+
+# Ignore environment and configuration files
 .env
+
+# Ignore system-specific files (macOS .DS_Store)
 **/.DS_store
 
-
-# Temporary storage
+# Ignore temporary storage
 server/files
 
-# Database models
+# Ignore database model files
 *.drawio
