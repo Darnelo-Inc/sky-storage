@@ -19,6 +19,7 @@ const SignIn: FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const res = await signIn(data)
+    console.log(res)
     if (res.hasOwnProperty("data")) {
       nav("/")
     }

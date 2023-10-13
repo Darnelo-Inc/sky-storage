@@ -34,7 +34,18 @@ class AuthService {
     const user = new User({ email, password: hashedPassword })
     await user.save()
 
-    return { id: user._id as ObjectId }
+    const token = this.createAccessToken({ _id: user._id })
+
+    return {
+      token,
+      user: {
+        id: user._id,
+        email: user.email,
+        disk_space: user.disk_space,
+        used_space: user.used_space,
+        avatar: user.avatar,
+      },
+    }
   }
 
   async signIn({ email, password }: IUserData) {
@@ -54,7 +65,7 @@ class AuthService {
     return {
       token,
       user: {
-        id: user.id,
+        id: user._id,
         email: user.email,
         disk_space: user.disk_space,
         used_space: user.used_space,

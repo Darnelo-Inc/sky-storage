@@ -3,6 +3,7 @@ import Button from "./ui/Button"
 import Form from "./ui/Form"
 import { useSignUpMutation } from "../api/authApi"
 import { AuthOnChange, IAuth } from "../models/auth"
+import { useNavigate } from "react-router-dom"
 
 const SignUp: FC = () => {
   const [data, setData] = useState<IAuth>({ email: "", password: "" })
@@ -13,10 +14,15 @@ const SignUp: FC = () => {
 
   const [signUp] = useSignUpMutation()
 
+  const nav = useNavigate()
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const res = await signUp(data)
     console.log(res)
+    if (res.hasOwnProperty("data")) {
+      nav("/")
+    }
     setData({ email: "", password: "" })
   }
 

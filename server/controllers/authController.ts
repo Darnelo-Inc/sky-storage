@@ -15,9 +15,9 @@ class AuthController {
         return res.status(409).json({ message: result.error })
       }
 
-      fileService.createDir(new File({ user_id: result.id, name: "" }))
+      fileService.createDir(new File({ user_id: result.user!.id, name: "" }))
 
-      return res.status(201).json({ message: "User was successfully created" })
+      return res.json(result)
     } catch (error) {
       return res
         .status(500)

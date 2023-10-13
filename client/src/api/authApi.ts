@@ -31,6 +31,15 @@ export const authApi = createApi({
         method: "POST",
         body,
       }),
+
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const res = await queryFulfilled
+          dispatch(setUser(res.data))
+        } catch (e) {
+          console.log(e)
+        }
+      },
     }),
     signIn: build.mutation<IUserResponse, AuthRequest>({
       query: (body) => ({
