@@ -52,8 +52,10 @@ class FileController {
 
   async uploadFile(req: Request, res: Response) {
     try {
+      const file = req.files?.file as UploadedFile
+      console.log(file)
       const result = await fileService.uploadFile({
-        file: req.files?.file as UploadedFile,
+        file,
         user_id: req.user?.id,
         parent_id: req.body.parent_id,
       })

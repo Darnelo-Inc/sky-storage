@@ -1,5 +1,6 @@
 import "dotenv/config"
 import { Request, Response } from "express"
+import File from "../models/File"
 import authService from "../services/authService"
 import fileService from "../services/fileService"
 
@@ -14,7 +15,7 @@ class AuthController {
         return res.status(409).json({ message: result.error })
       }
 
-      fileService.createRootDir({ user_id: result.id! })
+      fileService.createDir(new File({ user_id: result.id, name: "" }))
 
       return res.status(201).json({ message: "User was successfully created" })
     } catch (error) {
