@@ -136,6 +136,8 @@ class FileService {
       absFilePath = Path.join(__dirname, `../files/${user._id}/${file.name}`)
     }
 
+    console.log(absFilePath)
+
     if (fs.existsSync(absFilePath)) {
       return { error: "File already exists" }
     }
