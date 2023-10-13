@@ -6,10 +6,8 @@ import File, { IFile } from "../models/File"
 import {
   ICreateObjDir,
   IDownloadFile,
-  IFileInfo,
   IFindFileByIdAndUserId,
   IGetFiles,
-  IUpdateParentInfo,
   IUploadFile,
 } from "../models/FileService"
 
@@ -42,9 +40,12 @@ class FileService {
     })
   }
 
-  async createDir({ user_id, file_path = "" }: IFileInfo) {
+  async createDir(file: IFile) {
     try {
-      const filePath = Path.join(__dirname, `../files/${user_id}/${file_path}`)
+      const filePath = Path.join(
+        __dirname,
+        `../files/${file.user_id}/${file.path}`
+      )
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath)
         return { message: "Dir was successfully created" }
@@ -54,10 +55,6 @@ class FileService {
     } catch (error) {
       return { error }
     }
-  }
-
-  createRootDir({ user_id: id }: IFileInfo) {
-    this.createDir({ user_id: id })
   }
 
   async createObjDir({ name, user_id, parent_id }: ICreateObjDir) {
@@ -73,33 +70,24 @@ class FileService {
       return { error: "User not found" }
     }
 
-    this.updateParentInfo({ file, parent_id })
-
-    await file.save()
-
-    return { file }
-  }
-
-  async updateParentInfo({ file, parent_id }: IUpdateParentInfo) {
     const parentDir = await this.findFileById({ _id: parent_id })
 
     if (parentDir) {
       file.path = `${parentDir.path}/${file.name}`
-      await this.createDir({
-        user_id: file.user_id,
-        file_path: file.path,
-      })
+
+      await this.createDir(file)
 
       parentDir.children.push(file._id)
       parentDir.size += file.size
       await parentDir.save()
     } else {
       file.path = file.name
-      await this.createDir({
-        user_id: file.user_id,
-        file_path: file.path,
-      })
+      await this.createDir(file)
     }
+
+    await file.save()
+
+    return { file }
   }
 
   deleteFile(file: IFile) {
@@ -114,7 +102,7 @@ class FileService {
     }
   }
 
-  async uploadFile({ file, user_id, parent_id }: IUploadFile) {
+  async uploadFile({ file, user_id, parent_id, file_name }: IUploadFile) {
     if (!file) {
       return { error: "No file uploaded" }
     }
@@ -137,6 +125,8 @@ class FileService {
 
     let absFilePath
 
+    file.name = file_name
+
     if (parentDir) {
       absFilePath = Path.join(
         __dirname,
@@ -154,13 +144,13 @@ class FileService {
 
     const type = file.name.split(".").at(-1)!
 
-    // const filePath = parentDir ? parentDir.path : "/"
+    const filePath = parentDir ? parentDir.path : "/"
 
     const dbFile = new File({
       name: file.name,
       type,
       size: file.size,
-      path: parentDir?.path,
+      path: filePath,
       parent_id: parentDir?._id,
       user_id: user._id,
       creation_date: Date.now(),
