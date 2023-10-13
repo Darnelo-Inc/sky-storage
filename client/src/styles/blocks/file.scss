@@ -25,12 +25,19 @@
 
   &--dir,
   &--mp3,
-  &--mp4 {
+  &--mp4,
+  &--jpg,
+  &--jpeg,
+  &--png,
+  &--svg {
     width: 4.2rem;
   }
 
   &--txt,
-  &--pages {
+  &--pages,
+  &--doc,
+  &--docx,
+  &--pdf {
     left: 4.9rem;
 
     width: 3.353rem;
