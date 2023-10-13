@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react"
 import { ICreateFile, IFile } from "../models/file"
 import { RequestType } from "../models/files"
-import { addFile, setFiles } from "../store/reducers/fileSlice"
+import { addFile, deleteFile, setFiles } from "../store/reducers/fileSlice"
 import { lsUserTokenKey } from "../utils/lsKeys"
 import { FILE_URL } from "../utils/urls"
 
@@ -34,9 +34,7 @@ export const filesApi = createApi({
         headers: {
           Authorization: `Bearer ${localStorage.getItem(lsUserTokenKey)}`,
         },
-        body: parent_id
-          ? { name, parent_id, type: "dir" }
-          : { name, type: "dir" },
+        body: parent_id ? { name, parent_id } : { name },
       }),
 
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
@@ -56,6 +54,7 @@ export const filesApi = createApi({
         if (parent_id) {
           formData.append("parent_id", parent_id)
         }
+        formData.append("file_name", file.name)
         return {
           url: "/upload",
           method: "POST",
@@ -89,6 +88,26 @@ export const filesApi = createApi({
         },
         cache: "no-cache",
       }),
+    }),
+
+    deleteFile: build.mutation<any, { id: number }>({
+      query: ({ id }) => ({
+        url: "",
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(lsUserTokenKey)}`,
+        },
+        params: { id },
+      }),
+
+      // async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      //   try {
+      //     const res = await queryFulfilled
+      //     dispatch(deleteFile())
+      //   } catch (e) {
+      //     console.log(e)
+      //   }
+      // },
     }),
   }),
 })
