@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, useState } from "react"
+import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from "react"
 import Button from "./ui/Button"
 import { useCreateDirMutation, useUploadFileMutation } from "../api/filesApi"
 import { useAppSelector } from "../hooks/redux"
@@ -11,6 +11,8 @@ import {
 const StorageHeader: FC = () => {
   const [createBtnisActive, setCreateBtnisActive] = useState<boolean>(false)
   const [newDir, setNewDir] = useState<string>("")
+  const createDirInputRef = useRef<HTMLInputElement | null>(null)
+  const createDirRef = useRef<HTMLInputElement | null>(null)
 
   const { popDirStack, setCurrentDir } = useActions()
 
@@ -28,6 +30,7 @@ const StorageHeader: FC = () => {
 
   const toggleCreateDir = () => {
     setCreateBtnisActive((prevState) => !prevState)
+    if (createDirInputRef.current) createDirInputRef.current.focus()
     setNewDir("")
   }
 
@@ -49,6 +52,25 @@ const StorageHeader: FC = () => {
       uploadFile({ file: files.item(i), parent_id: currentDir })
     }
   }
+
+  const handleClickOutside = (e: MouseEvent) => {
+    if (
+      createBtnisActive &&
+      createDirRef.current &&
+      !createDirRef.current.contains(e.target as Node)
+    ) {
+      toggleCreateDir()
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside)
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [createBtnisActive])
 
   return (
     <header className="storage__header">
@@ -74,7 +96,7 @@ const StorageHeader: FC = () => {
           />
         </form>
 
-        <div className="storage__header__createDir">
+        <div className="storage__header__createDir" ref={createDirRef}>
           <Button
             type="button"
             className={[
@@ -92,7 +114,6 @@ const StorageHeader: FC = () => {
               "form--createDir",
               createBtnisActive ? "" : "form--hidden",
             ].join(" ")}
-            // onClick={(e) => rmDefault(e)}
             onSubmit={(e) => createDirHandler(e)}
           >
             <input
@@ -105,6 +126,7 @@ const StorageHeader: FC = () => {
               onChange={(e) => setNewDir(e.target.value)}
               id="createDir"
               placeholder="Name new dir"
+              ref={createDirInputRef}
             />
             <Button
               type="button"
