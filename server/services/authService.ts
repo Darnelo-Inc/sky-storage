@@ -1,6 +1,5 @@
 import bcryptjs from "bcryptjs"
 import { Secret, sign } from "jsonwebtoken"
-import { ObjectId } from "mongoose"
 import { IFindUserByEmail, IUserData, I_id } from "../models/AuthService"
 import User from "../models/User"
 
@@ -9,11 +8,6 @@ const secretKey = process.env.secretKey as Secret
 class AuthService {
   async findUserByEmail({ email }: IFindUserByEmail) {
     const user = await User.findOne({ email })
-    return user
-  }
-
-  async findUserById({ _id }: I_id) {
-    const user = await User.findOne({ _id })
     return user
   }
 
@@ -75,7 +69,7 @@ class AuthService {
   }
 
   async auth({ _id }: I_id) {
-    const user = await this.findUserById({ _id })
+    const user = await User.findById(_id)
 
     if (!user) {
       return { error: "User not found" }

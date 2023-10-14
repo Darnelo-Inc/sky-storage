@@ -1,7 +1,5 @@
 import fs from "fs"
 import Path from "path"
-import authService from "./authService"
-import { I_id } from "../models/AuthService"
 import File, { IFile } from "../models/File"
 import {
   ICreateObjDir,
@@ -10,6 +8,7 @@ import {
   IGetFiles,
   IUploadFile,
 } from "../models/FileService"
+import User from "../models/User"
 
 class FileService {
   getFile(file: IFile) {
@@ -27,10 +26,6 @@ class FileService {
     }
 
     return { files }
-  }
-
-  async findFileById({ _id }: I_id) {
-    return await File.findOne({ _id })
   }
 
   async findFileByIdAndUserId({ _id, user_id }: IFindFileByIdAndUserId) {
@@ -70,7 +65,7 @@ class FileService {
       return { error: "User not found" }
     }
 
-    const parentDir = await this.findFileById({ _id: parent_id })
+    const parentDir = await File.findById(parent_id)
 
     if (parentDir) {
       file.path = `${parentDir.path}/${file.name}`
@@ -106,7 +101,8 @@ class FileService {
     if (!file) {
       return { error: "No file uploaded" }
     }
-    const user = await authService.findUserById({ _id: user_id })
+
+    const user = await User.findById(user_id)
 
     if (!user) {
       return { error: "Something went wrong" }
