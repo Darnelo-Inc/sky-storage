@@ -23,7 +23,7 @@ app.use("/api/files", fileRouter)
 
 async function start() {
   try {
-    await mongoose.connect(dbURL)
+    await mongoose.connect(dbURL, { dbName: "data" })
 
     if (isProd) {
       const options = {
