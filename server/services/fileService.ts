@@ -12,7 +12,12 @@ import User from "../models/User"
 
 class FileService {
   getFile(file: IFile) {
-    return Path.resolve(__dirname, `../files/${file.user_id}/${file.path}`)
+    return Path.resolve(
+      __dirname,
+      `../files/${file.user_id}/${file.path}/${
+        file.type === "dir" ? "" : file.name
+      }`
+    )
   }
 
   async getFiles({ user_id, parent_id }: IGetFiles) {
@@ -85,18 +90,6 @@ class FileService {
     return { file }
   }
 
-  deleteFile(file: IFile) {
-    const targetPath = this.getFile(file)
-
-    if (file.type === "dir") {
-      // delete inner files
-      fs.rmdirSync(targetPath)
-    } else {
-      // update parentDir info
-      fs.unlinkSync(targetPath)
-    }
-  }
-
   async uploadFile({ file, user_id, parent_id, file_name }: IUploadFile) {
     if (!file) {
       return { error: "No file uploaded" }
@@ -113,13 +106,22 @@ class FileService {
     }
 
     user.used_space += file.size
+    // add file to user.files array
 
     const parentDir = await this.findFileByIdAndUserId({
       user_id,
       _id: parent_id,
     })
 
+    const type = file.name.split(".").at(-1)!.toLowerCase()
+
     let absFilePath
+
+    const lastDotIndex = file_name.lastIndexOf(".")
+
+    if (lastDotIndex !== -1) {
+      file_name = file_name.substring(0, lastDotIndex)
+    }
 
     file.name = file_name
 
@@ -137,8 +139,6 @@ class FileService {
     }
 
     file.mv(absFilePath)
-
-    const type = file.name.split(".").at(-1)!
 
     const filePath = parentDir ? parentDir.path : "/"
 
@@ -170,6 +170,18 @@ class FileService {
     }
 
     return { file }
+  }
+
+  deleteFile(file: IFile) {
+    const targetPath = this.getFile(file)
+
+    if (file.type === "dir") {
+      // delete inner files
+      fs.rmdirSync(targetPath)
+    } else {
+      // update parentDir info
+      fs.unlinkSync(targetPath)
+    }
   }
 }
 

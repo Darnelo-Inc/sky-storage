@@ -118,7 +118,10 @@ class FileController {
 
       await File.deleteOne({ _id: req.query.id })
 
-      return res.json({ message: "File was successfully deleted" })
+      return res.json({
+        message: "File was successfully deleted",
+        file_id: file._id,
+      })
     } catch (error) {
       return res
         .status(500)
