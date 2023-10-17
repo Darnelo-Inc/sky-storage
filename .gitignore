@@ -1,7 +1,8 @@
 # Ignore generated files and directories
 node_modules/
 .vscode/
-server/dist/
+**/dist/
+**/build/
 
 # Ignore environment and configuration files
 .env
