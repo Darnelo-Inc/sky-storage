@@ -1,0 +1,19 @@
+version: "3"
+services:
+  client:
+    image: sky-storage-client
+    ports: ["80:80", "443:443"]
+    volumes:
+      - /Users/darnelo/certificate.crt:/etc/nginx/www.sky-storage.com.crt
+      - /Users/darnelo/private.key:/etc/nginx/www.sky-storage.com.key
+    env_file:
+      - fileName
+
+  server:
+    image: sky-storage-server
+    ports: ["8080:8080"]
+    volumes:
+      - /Users/darnelo/certificate.crt:/etc/nginx/www.sky-storage.com.crt
+      - /Users/darnelo/private.key:/etc/nginx/www.sky-storage.com.key
+    env_file:
+      - server/.env
