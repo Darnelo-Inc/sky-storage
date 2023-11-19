@@ -44,7 +44,7 @@
   grid-template-columns: 17fr 83fr;
   flex: 1;
 
-  overflow: scroll;
+  // overflow: scroll; 
 }
 
 .storage__aside {
@@ -58,7 +58,7 @@
   flex: 1;
   padding: 4rem 0;
 
-  overflow: scroll;
+  // overflow: scroll;
 }
 
 .storage__header__createDir {
