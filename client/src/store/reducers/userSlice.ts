@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { IUser, IUserInfo, IUserResponse } from "../../models/user"
+import { IUser } from "../../models/user"
 import { lsUserTokenKey } from "../../utils/lsKeys"
+import { IUserInfo, IUserResponse } from "../../api/authApi"
 
 const initialState: IUser = {
   currentUser: {} as IUserInfo,
