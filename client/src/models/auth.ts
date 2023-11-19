@@ -9,8 +9,3 @@ export type AuthOnChange = (
   e: ChangeEvent<HTMLInputElement>,
   type: string
 ) => void
-
-export interface AuthRequest {
-  email: string
-  password: string
-}

@@ -7,10 +7,13 @@ import SignUp from "./components/SignUp"
 import { useAppSelector } from "./hooks/redux"
 import Storage from "./pages/Storage"
 import { selectIsAuth } from "./store/selectors/userSelector"
+import { FILE_URL, AUTH_URL } from "./utils/urls"
 
 const App = () => {
   const [auth, { isLoading }] = useLazyAuthQuery()
   const isAuth = useAppSelector(selectIsAuth)
+  console.log(process.env.NODE_ENV)
+  console.log(FILE_URL, AUTH_URL)
 
   useLayoutEffect(() => {
     auth("")

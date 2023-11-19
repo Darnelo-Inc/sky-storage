@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react"
 import { ICreateFile, IFile } from "../models/file"
 import { RequestType } from "../models/files"
-import { addFile, setFiles } from "../store/reducers/fileSlice"
+import { addFile, deleteFile, setFiles } from "../store/reducers/fileSlice"
 import { lsUserTokenKey } from "../utils/lsKeys"
 import { FILE_URL } from "../utils/urls"
 
@@ -100,14 +100,15 @@ export const filesApi = createApi({
         params: { id },
       }),
 
-      // async onQueryStarted(_, { dispatch, queryFulfilled }) {
-      //   try {
-      //     const res = await queryFulfilled
-      //     dispatch(deleteFile())
-      //   } catch (e) {
-      //     console.log(e)
-      //   }
-      // },
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const res = await queryFulfilled
+          console.log(res)
+          dispatch(deleteFile(res.data))
+        } catch (e) {
+          console.log(e)
+        }
+      },
     }),
   }),
 })

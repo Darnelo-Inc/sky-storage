@@ -1,9 +1,24 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { AuthRequest } from "../models/auth"
-import { IUserResponse } from "../models/user"
 import { setUser } from "../store/reducers/userSlice"
 import { lsUserTokenKey } from "../utils/lsKeys"
 import { AUTH_URL } from "../utils/urls"
+
+export interface AuthRequest {
+  email: string
+  password: string
+}
+
+export interface IUserResponse {
+  token: string
+  user: IUserInfo
+}
+
+export interface IUserInfo {
+  id: string
+  email: string
+  disk_space: number
+  used_space: number
+}
 
 export const authApi = createApi({
   reducerPath: "authApi",
