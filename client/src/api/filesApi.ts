@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react"
 import { ICreateFile, IFile } from "../models/file"
-import { RequestType } from "../models/files"
 import { addFile, deleteFile, setFiles } from "../store/reducers/fileSlice"
 import { lsUserTokenKey } from "../utils/lsKeys"
 import { FILE_URL } from "../utils/urls"
@@ -9,7 +8,7 @@ export const filesApi = createApi({
   reducerPath: "filesApi",
   baseQuery: fetchBaseQuery({ baseUrl: FILE_URL }),
   endpoints: (build) => ({
-    getFiles: build.query<IFile[], RequestType>({
+    getFiles: build.query<IFile[], any>({
       query: (dir_id) => ({
         url: `/${dir_id ? `?parent_id=${dir_id}` : ""}`,
         method: "GET",
