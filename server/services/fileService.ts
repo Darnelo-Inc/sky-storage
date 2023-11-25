@@ -46,6 +46,7 @@ class FileService {
         __dirname,
         `../files/${file.user_id}/${file.path}`
       )
+
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath)
         return { message: "Dir was successfully created" }
@@ -115,8 +116,6 @@ class FileService {
 
     const type = file.name.split(".").at(-1)!.toLowerCase()
 
-    let absFilePath
-
     const lastDotIndex = file_name.lastIndexOf(".")
 
     if (lastDotIndex !== -1) {
@@ -124,6 +123,8 @@ class FileService {
     }
 
     file.name = file_name
+
+    let absFilePath
 
     if (parentDir) {
       absFilePath = Path.join(

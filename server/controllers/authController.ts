@@ -45,7 +45,7 @@ class AuthController {
 
   async auth(req: Request, res: Response) {
     try {
-      const result = await authService.auth({ _id: req.user?.id })
+      const result = await authService.auth(req.user?.id)
 
       if (result.error) {
         return res.status(401).json({ message: result.error })
