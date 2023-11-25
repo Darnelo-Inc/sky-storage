@@ -1,5 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { IFile, IFileState } from "../../models/file"
+import { IFile } from "../../models/file"
+
+interface IFileState {
+  files: IFile[]
+  currentDir: number | null
+  dirStack: number[]
+}
 
 const initialState: IFileState = {
   files: [],

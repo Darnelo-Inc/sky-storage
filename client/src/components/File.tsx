@@ -2,13 +2,19 @@ import { FC, MouseEvent } from "react"
 import { useLazyDownloadFileQuery } from "../api/filesApi"
 import { useAppSelector } from "../hooks/redux"
 import { useActions } from "../hooks/useActions"
-import { FileProps } from "../models/file"
 import { selectCurrentDir } from "../store/selectors/fileSelector"
 import { dateCalc } from "../utils/dateCalc"
 import { ICONS } from "../utils/iconCalc"
 import { sizeCalc } from "../utils/sizeCalc"
+import { IFile } from "../models/file"
 
-const File: FC<FileProps> = ({ file }) => {
+interface FileProps {
+  file: IFile
+}
+
+const File: FC<FileProps> = (props) => {
+  const { file } = props
+
   const currentDir = useAppSelector(selectCurrentDir)
 
   const { setCurrentDir, pushDirStack } = useActions()

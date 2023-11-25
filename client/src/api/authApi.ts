@@ -31,6 +31,7 @@ export const authApi = createApi({
           Authorization: `Bearer ${localStorage.getItem(lsUserTokenKey)}`,
         },
       }),
+
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled

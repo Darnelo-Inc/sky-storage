@@ -1,7 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { IUser } from "../../models/user"
 import { lsUserTokenKey } from "../../utils/lsKeys"
 import { IUserInfo, IUserResponse } from "../../api/authApi"
+
+interface IUser {
+  currentUser: IUserInfo
+  isAuth: boolean
+}
 
 const initialState: IUser = {
   currentUser: {} as IUserInfo,

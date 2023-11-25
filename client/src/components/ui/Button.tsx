@@ -1,19 +1,20 @@
 import { ReactNode } from "react"
 
-const Button = ({
-  type,
-  children,
-  className,
-  onClick,
-}: {
+type ButtonProps = {
   type: "button" | "submit" | "reset"
   children: ReactNode
   className: string
   onClick?: (e?: any) => void
-}) => (
-  <button type={type} className={className} onClick={onClick}>
-    {children}
-  </button>
-)
+}
+
+const Button = (props: ButtonProps) => {
+  const { type, children, className, onClick } = props
+
+  return (
+    <button type={type} className={className} onClick={onClick}>
+      {children}
+    </button>
+  )
+}
 
 export default Button

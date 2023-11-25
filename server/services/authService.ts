@@ -1,24 +1,25 @@
 import bcryptjs from "bcryptjs"
 import { Secret, sign } from "jsonwebtoken"
-import { IFindUserByEmail, IUserData, I_id } from "../models/AuthService"
+import { IUserData } from "../models/AuthService"
 import User from "../models/User"
+import { ObjectId } from "mongoose"
 
 const secretKey = process.env.secretKey as Secret
 
 class AuthService {
-  async findUserByEmail({ email }: IFindUserByEmail) {
+  async findUserByEmail(email: string) {
     const user = await User.findOne({ email })
     return user
   }
 
-  createAccessToken({ _id }: I_id) {
+  createAccessToken(_id: ObjectId) {
     return sign({ id: _id }, secretKey, {
       expiresIn: "1h",
     })
   }
 
   async signUp({ email, password }: IUserData) {
-    const isUserExists = await this.findUserByEmail({ email })
+    const isUserExists = await this.findUserByEmail(email)
     if (isUserExists) {
       return { error: "User with this email already exists" }
     }
@@ -28,7 +29,7 @@ class AuthService {
     const user = new User({ email, password: hashedPassword })
     await user.save()
 
-    const token = this.createAccessToken({ _id: user._id })
+    const token = this.createAccessToken(user._id)
 
     return {
       token,
@@ -43,7 +44,7 @@ class AuthService {
   }
 
   async signIn({ email, password }: IUserData) {
-    const user = await this.findUserByEmail({ email })
+    const user = await this.findUserByEmail(email)
     if (!user) {
       return { error: "Invalid username or password" }
     }
@@ -54,7 +55,7 @@ class AuthService {
       return { error: "Invalid username or password" }
     }
 
-    const token = this.createAccessToken({ _id: user._id })
+    const token = this.createAccessToken(user._id)
 
     return {
       token,
@@ -68,14 +69,14 @@ class AuthService {
     }
   }
 
-  async auth({ _id }: I_id) {
+  async auth(_id: ObjectId) {
     const user = await User.findById(_id)
 
     if (!user) {
       return { error: "User not found" }
     }
 
-    const token = this.createAccessToken({ _id: user._id })
+    const token = this.createAccessToken(user._id)
 
     return {
       token,

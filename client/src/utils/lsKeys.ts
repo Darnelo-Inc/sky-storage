@@ -1,1 +1,1 @@
-export const lsUserTokenKey = "sky-storage-user-token"
+export const lsUserTokenKey = "user-token"

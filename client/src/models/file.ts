@@ -1,9 +1,3 @@
-export interface IFileState {
-  files: IFile[]
-  currentDir: number | null
-  dirStack: number[]
-}
-
 export interface IFile {
   _id: number
   name: string
@@ -11,10 +5,6 @@ export interface IFile {
   size: number
   path: string
   creation_date: number
-}
-
-export interface FileProps {
-  file: IFile
 }
 
 export interface ICreateFile {

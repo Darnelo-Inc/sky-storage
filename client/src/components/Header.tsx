@@ -3,10 +3,15 @@ import { Link } from "react-router-dom"
 import Nav from "./Nav"
 import logo from "../assets/images/logo.svg"
 import { useAppSelector } from "../hooks/redux"
-import { HeaderProps } from "../models/header"
 import { selectIsAuth } from "../store/selectors/userSelector"
 
-const Header: FC<HeaderProps> = ({ isLoading }) => {
+interface HeaderProps {
+  isLoading?: boolean
+}
+
+const Header: FC<HeaderProps> = (props) => {
+  const { isLoading } = props
+
   const isAuth = useAppSelector(selectIsAuth)
 
   return (
