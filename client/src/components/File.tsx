@@ -41,10 +41,12 @@ const File: FC<FileProps> = (props) => {
   return (
     <div
       className="file"
+      // TODO: animation of the transition between folders (?react-transition-group?)
       onClick={
         file.type === "dir" ? () => openDirHandler() : (e) => downloadHandler(e)
       }
     >
+      {/* TODO: add "radio-mark" to delete or download a group of files */}
       <div className="file__name">
         <img
           src={ICONS[file.type]}

@@ -8,6 +8,7 @@ export const filesApi = createApi({
   reducerPath: "filesApi",
   baseQuery: fetchBaseQuery({ baseUrl: FILE_URL }),
   endpoints: (build) => ({
+    // TODO: add types
     getFiles: build.query<IFile[], any>({
       query: (dir_id) => ({
         url: `/${dir_id ? `?parent_id=${dir_id}` : ""}`,
@@ -46,6 +47,7 @@ export const filesApi = createApi({
       },
     }),
 
+    // TODO: add types
     uploadFile: build.mutation<any, any>({
       query: ({ file, parent_id }) => {
         const formData = new FormData()
@@ -74,6 +76,7 @@ export const filesApi = createApi({
       },
     }),
 
+    // TODO: add types
     downloadFile: build.query<any, any>({
       query: ({ id }) => ({
         url: "/download",
@@ -83,12 +86,14 @@ export const filesApi = createApi({
         },
         params: { id },
         responseHandler: async (response) => {
-          return window.URL.createObjectURL(await response.blob())
+          const blob = await response.blob()
+          return window.URL.createObjectURL(blob)
         },
         cache: "no-cache",
       }),
     }),
 
+    // TODO: add types
     deleteFile: build.mutation<any, { id: number }>({
       query: ({ id }) => ({
         url: "",
@@ -102,6 +107,7 @@ export const filesApi = createApi({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled
+          // TODO: rm in future
           console.log(res)
           dispatch(deleteFile(res.data))
         } catch (e) {

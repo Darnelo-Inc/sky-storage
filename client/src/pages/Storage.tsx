@@ -9,6 +9,7 @@ const Storage: FC = () => {
   const currentDir = useAppSelector(selectCurrentDir)
   const files = useAppSelector(selectFiles)
 
+  // TODO: uploading progress bar
   const [uploadFile] = useUploadFileMutation()
   const [getFiles] = useLazyGetFilesQuery()
 
@@ -40,6 +41,8 @@ const Storage: FC = () => {
   }, [getFiles, currentDir])
 
   return (
+    // TODO: isLoading animation
+    // TODO: adaptive layout
     <main
       className="storage"
       onDrop={(e) => dropHandler(e)}
@@ -54,6 +57,7 @@ const Storage: FC = () => {
               <h2>aside</h2>
             </aside>
             <div className="storage__content">
+              {/* TODO: empty folder case */}
               {files.map((file) => (
                 <File key={file._id} file={file} />
               ))}

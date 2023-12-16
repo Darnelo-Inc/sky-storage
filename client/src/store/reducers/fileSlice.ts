@@ -33,7 +33,7 @@ export const fileSlice = createSlice({
       state.dirStack.pop()
     },
     deleteFile: (state, action: PayloadAction<number>) => {
-      state.files.filter((file) => file._id !== action.payload)
+      state.files = state.files.filter((file) => file._id !== action.payload)
     },
   },
 })

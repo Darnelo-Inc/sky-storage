@@ -84,6 +84,7 @@ class FileController {
         return res.status(400).json({ message: result.error })
       }
 
+      // TODO: rm !
       const file = result.file!
 
       const filePath = Path.join(
@@ -114,6 +115,7 @@ class FileController {
         return res.status(400).json({ message: "Something went wrong" })
       }
 
+      // TODO: add handler for success/failure deletion of a physical file
       fileService.deleteFile(file)
 
       await File.deleteOne({ _id: req.query.id })

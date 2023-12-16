@@ -11,6 +11,7 @@ import {
 import User from "../models/User"
 
 class FileService {
+  // TODO: why file and dir have the same method called getFILE??
   getFile(file: IFile) {
     return Path.resolve(
       __dirname,
@@ -107,7 +108,7 @@ class FileService {
     }
 
     user.used_space += file.size
-    // add file to user.files array
+    // TODO: add file to user.files array
 
     const parentDir = await this.findFileByIdAndUserId({
       user_id,
@@ -177,10 +178,10 @@ class FileService {
     const targetPath = this.getFile(file)
 
     if (file.type === "dir") {
-      // delete inner files
+      // TODO: delete inner files
       fs.rmdirSync(targetPath)
     } else {
-      // update parentDir info
+      // TODO: update parentDir info
       fs.unlinkSync(targetPath)
     }
   }

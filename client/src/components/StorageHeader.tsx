@@ -136,6 +136,10 @@ const StorageHeader: FC = () => {
               ✔
             </Button>
           </form>
+
+          {/* TODO: sorting */}
+          {/* TODO: searching */}
+          {/* TODO: display in a list/blocks */}
         </div>
       </div>
     </header>
