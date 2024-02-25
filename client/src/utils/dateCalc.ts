@@ -1,11 +1,11 @@
 export const dateCalc = (ms: number) => {
   const date = new Date(ms)
 
-  const yyyy: number = date.getFullYear()
-  let mm: number | string = date.getMonth() + 1
-  let dd: number | string = date.getDate()
-  if (dd < 10) dd = "0" + dd
-  if (mm < 10) mm = "0" + mm
+  const year: number = date.getFullYear()
+  let month: number | string = date.getMonth() + 1
+  let day: number | string = date.getDate()
+  if (day < 10) day = "0" + day
+  if (month < 10) month = "0" + month
 
-  return dd + "/" + mm + "/" + yyyy
+  return day + "/" + month + "/" + year
 }
