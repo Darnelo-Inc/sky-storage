@@ -8,14 +8,15 @@ class AuthController {
   async signUp(req: Request, res: Response) {
     try {
       const { email, password } = req.body
-
       const result = await authService.signUp({ email, password })
 
       if (result.error) {
         return res.status(409).json({ message: result.error })
       }
 
-      fileService.createDir(new File({ user_id: result.user!.id, name: "" }))
+      if(result.user) {
+        fileService.createDir(new File({ user_id: result.user.id, name: "" }))
+      }
 
       return res.json(result)
     } catch (error) {
@@ -28,7 +29,6 @@ class AuthController {
   async signIn(req: Request, res: Response) {
     try {
       const { email, password } = req.body
-
       const result = await authService.signIn({ email, password })
 
       if (result.error) {

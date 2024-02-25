@@ -1,5 +1,6 @@
 import { UploadedFile } from "express-fileupload"
 import { ObjectId } from "mongoose"
+import { IFile } from "./File"
 
 export interface IGetFiles {
   user_id: ObjectId
@@ -26,5 +27,10 @@ export interface IFindFileByIdAndUserId {
 
 export interface IDownloadFile {
   _id: ObjectId
+  user_id: ObjectId
+}
+
+export interface IDeleteFile {
+  file: IFile
   user_id: ObjectId
 }

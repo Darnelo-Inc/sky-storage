@@ -84,16 +84,19 @@ class FileController {
         return res.status(400).json({ message: result.error })
       }
 
-      // TODO: rm !
-      const file = result.file!
+      const file = result.file
+
+      if (!file) {
+        return res.status(400).json({ message: "File not exists" })
+      }
 
       const filePath = Path.join(
         __dirname,
-        `../files/${req.user!.id}/${file.path}/${file.name}`
+        `../files/${req.user?.id}/${file.path}/${file.name}`
       )
 
       if (fs.existsSync(filePath)) {
-        return res.download(filePath, file.name)
+        return res.download(filePath)
       } else {
         return res.status(400).json({ message: "File not exists" })
       }
@@ -116,7 +119,7 @@ class FileController {
       }
 
       // TODO: add handler for success/failure deletion of a physical file
-      fileService.deleteFile(file)
+      fileService.deleteFile({file, user_id: req.user?.id})
 
       await File.deleteOne({ _id: req.query.id })
 
