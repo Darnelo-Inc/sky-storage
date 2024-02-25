@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from "react"
+import { ChangeEvent, FC, FormEvent, useCallback, useEffect, useRef, useState } from "react"
 import Button from "./ui/Button"
 import { useCreateDirMutation, useUploadFileMutation } from "../api/filesApi"
 import { useAppSelector } from "../hooks/redux"
@@ -49,11 +49,13 @@ const StorageHeader: FC = () => {
     const files = e.target.files || new FileList()
 
     for (let i = 0; i < files.length; i++) {
-      uploadFile({ file: files.item(i), parent_id: currentDir })
+      if(!files.item(i)) continue
+
+      uploadFile({ file: files.item(i) as File, parent_id: currentDir })
     }
   }
 
-  const handleClickOutside = (e: MouseEvent) => {
+  const handleClickOutside = useCallback((e: MouseEvent) => {
     if (
       createBtnisActive &&
       createDirRef.current &&
@@ -61,7 +63,7 @@ const StorageHeader: FC = () => {
     ) {
       toggleCreateDir()
     }
-  }
+  }, [createBtnisActive])
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside)
@@ -69,8 +71,7 @@ const StorageHeader: FC = () => {
     return () => {
       document.removeEventListener("click", handleClickOutside)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [createBtnisActive])
+  }, [handleClickOutside])
 
   return (
     <header className="storage__header">

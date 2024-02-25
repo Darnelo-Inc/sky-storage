@@ -32,7 +32,9 @@ const Storage: FC = () => {
     const files = e.dataTransfer.files
 
     for (let i = 0; i < files.length; i++) {
-      uploadFile({ file: files.item(i), parent_id: currentDir })
+      if(!files.item(i)) continue
+
+      uploadFile({ file: files.item(i) as File, parent_id: currentDir })
     }
   }
 
