@@ -1,15 +1,26 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react"
-import { ICreateFile, IFile } from "../models/file"
 import { addFile, deleteFile, setFiles } from "../store/reducers/fileSlice"
 import { lsUserTokenKey } from "../utils/lsKeys"
 import { FILE_URL } from "../utils/urls"
+import { IFile } from "../models/file"
+
+interface IFileResponse extends IFile {}
+
+interface ICreateRequest {
+  name: string
+  parent_id: number | null
+}
+
+interface IUploadRequest {
+  file: File
+  parent_id: number | null
+}
 
 export const filesApi = createApi({
   reducerPath: "filesApi",
   baseQuery: fetchBaseQuery({ baseUrl: FILE_URL }),
   endpoints: (build) => ({
-    // TODO: add types
-    getFiles: build.query<IFile[], any>({
+    getFiles: build.query<IFileResponse[], number | null>({
       query: (dir_id) => ({
         url: `/${dir_id ? `?parent_id=${dir_id}` : ""}`,
         method: "GET",
@@ -17,6 +28,7 @@ export const filesApi = createApi({
           Authorization: `Bearer ${localStorage.getItem(lsUserTokenKey)}`,
         },
       }),
+
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled
@@ -27,7 +39,7 @@ export const filesApi = createApi({
       },
     }),
 
-    createDir: build.mutation<IFile, ICreateFile>({
+    createDir: build.mutation<IFileResponse, ICreateRequest>({
       query: ({ name, parent_id }) => ({
         url: "",
         method: "POST",
@@ -47,13 +59,12 @@ export const filesApi = createApi({
       },
     }),
 
-    // TODO: add types
-    uploadFile: build.mutation<any, any>({
+    uploadFile: build.mutation<IFileResponse, IUploadRequest>({
       query: ({ file, parent_id }) => {
         const formData = new FormData()
         formData.append("file", file)
         if (parent_id) {
-          formData.append("parent_id", parent_id)
+          formData.append("parent_id", parent_id.toString())
         }
         formData.append("file_name", file.name)
         return {
@@ -76,8 +87,7 @@ export const filesApi = createApi({
       },
     }),
 
-    // TODO: add types
-    downloadFile: build.query<any, any>({
+    downloadFile: build.query<string, { id: number }>({
       query: ({ id }) => ({
         url: "/download",
         method: "GET",

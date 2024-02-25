@@ -3,12 +3,12 @@ import { setUser } from "../store/reducers/userSlice"
 import { lsUserTokenKey } from "../utils/lsKeys"
 import { AUTH_URL } from "../utils/urls"
 
-export interface AuthRequest {
+export interface IAuthRequest {
   email: string
   password: string
 }
 
-export interface IUserResponse {
+export interface IAuthResponse {
   token: string
   user: IUserInfo
 }
@@ -24,7 +24,7 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({ baseUrl: AUTH_URL }),
   endpoints: (build) => ({
-    auth: build.query<IUserResponse, string>({
+    auth: build.query<IAuthResponse, string>({
       query: () => ({
         url: "",
         headers: {
@@ -41,7 +41,8 @@ export const authApi = createApi({
         }
       },
     }),
-    signUp: build.mutation<any, AuthRequest>({
+
+    signUp: build.mutation<IAuthResponse, IAuthRequest>({
       query: (body) => ({
         url: "/signUp",
         method: "POST",
@@ -57,7 +58,8 @@ export const authApi = createApi({
         }
       },
     }),
-    signIn: build.mutation<IUserResponse, AuthRequest>({
+    
+    signIn: build.mutation<IAuthResponse, IAuthRequest>({
       query: (body) => ({
         url: "/signIn",
         method: "POST",
@@ -76,5 +78,4 @@ export const authApi = createApi({
   }),
 })
 
-export const { useSignUpMutation, useSignInMutation, useLazyAuthQuery } =
-  authApi
+export const { useSignUpMutation, useSignInMutation, useLazyAuthQuery } = authApi

@@ -5,9 +5,6 @@ export interface IFile {
   size: number
   path: string
   creation_date: number
-}
-
-export interface ICreateFile {
-  name: string
-  parent_id: number | null
+  user_id: string
+  children: Array<File>
 }

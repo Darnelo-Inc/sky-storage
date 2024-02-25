@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { lsUserTokenKey } from "../../utils/lsKeys"
-import { IUserInfo, IUserResponse } from "../../api/authApi"
+import { IUserInfo, IAuthResponse } from "../../api/authApi"
 
 interface IUser {
   currentUser: IUserInfo
@@ -16,7 +16,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<IUserResponse>) => {
+    setUser: (state, action: PayloadAction<IAuthResponse>) => {
       state.isAuth = true
       state.currentUser = action.payload.user
       localStorage.setItem(lsUserTokenKey, action.payload.token)
