@@ -29,7 +29,7 @@ const File: FC<FileProps> = (props) => {
     e.preventDefault()
     const res = await downloadFile({ id: file._id })
 
-    const downloadURL = res.data
+    const downloadURL = res.data || ""
     const link = document.createElement("a")
     link.href = downloadURL
     link.download = file.name
@@ -38,6 +38,14 @@ const File: FC<FileProps> = (props) => {
     link.remove()
   }
 
+  const lastDotIndex = file.name.lastIndexOf(".")
+  let file_name = file.name
+
+  if (lastDotIndex !== -1) {
+    file_name = file.name.substring(0, lastDotIndex)
+  }
+
+  
   return (
     <div
       className="file"
@@ -53,7 +61,7 @@ const File: FC<FileProps> = (props) => {
           alt={file.name}
           className={["file__icon", `file__icon--${file.type}`].join(" ")}
         />
-        {file.name}
+        {file_name}
       </div>
       <div className="file__spacing" />
       <div className="file__type">{file.type !== "dir" && file.type}</div>

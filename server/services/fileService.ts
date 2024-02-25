@@ -3,6 +3,7 @@ import Path from "path"
 import File, { IFile } from "../models/File"
 import {
   ICreateObjDir,
+  IDeleteFile,
   IDownloadFile,
   IFindFileByIdAndUserId,
   IGetFiles,
@@ -11,8 +12,7 @@ import {
 import User from "../models/User"
 
 class FileService {
-  // TODO: why file and dir have the same method called getFILE??
-  getFile(file: IFile) {
+  getPath(file: IFile) {
     return Path.resolve(
       __dirname,
       `../files/${file.user_id}/${file.path}/${
@@ -108,20 +108,13 @@ class FileService {
     }
 
     user.used_space += file.size
-    // TODO: add file to user.files array
-
+ 
     const parentDir = await this.findFileByIdAndUserId({
       user_id,
       _id: parent_id,
     })
 
     const type = file.name.split(".").at(-1)!.toLowerCase()
-
-    const lastDotIndex = file_name.lastIndexOf(".")
-
-    if (lastDotIndex !== -1) {
-      file_name = file_name.substring(0, lastDotIndex)
-    }
 
     file.name = file_name
 
@@ -154,6 +147,8 @@ class FileService {
       creation_date: Date.now(),
     })
 
+    user.files.push(dbFile._id)
+
     await dbFile.save()
 
     await user.save()
@@ -174,14 +169,49 @@ class FileService {
     return { file }
   }
 
-  deleteFile(file: IFile) {
-    const targetPath = this.getFile(file)
+  async deleteFile({file, user_id}: IDeleteFile) {
+    const targetPath = this.getPath(file)
+    
+    const user = await User.findById(user_id)
+
+    if (!user) {
+      return { error: "Something went wrong" }
+    }
 
     if (file.type === "dir") {
-      // TODO: delete inner files
+      const dirStack = [file]
+
+      while(dirStack.length) {
+        const dir = dirStack.pop() as IFile
+
+        for(const child of dir.children) {
+          const obj = await File.findById(child)
+
+          if(obj) {
+            if(obj.type === "dir") {
+              dirStack.push(obj)
+            } else {
+              const targetPath = this.getPath(obj)
+              fs.unlinkSync(targetPath)
+            }
+          }
+        }
+      }
+
       fs.rmdirSync(targetPath)
     } else {
-      // TODO: update parentDir info
+      user.files = user.files.filter(id => id !== file._id)
+
+      const parentDir = await File.findById(file.parent_id)
+      if (parentDir) {
+        parentDir.children = parentDir.children.filter(id => id !== file._id)
+      }
+
+      while (parentDir) {
+          parentDir.size -= file.size
+          file = parentDir
+      }
+
       fs.unlinkSync(targetPath)
     }
   }
