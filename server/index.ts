@@ -7,12 +7,11 @@ import mongoose from "mongoose"
 import corsMiddleware from "./middleware/cors.middleware"
 import authRouter from "./routes/auth.routes"
 import fileRouter from "./routes/file.routes"
+import { __isProd__, SERVER_PORT } from "./const"
 
 const app: Express = express()
 
-const PORT = process.env.serverPort!
-const dbURL = process.env.dbURL!
-const isProd = process.env.NODE_ENV === "production"
+
 
 app.use(fileUpload({}))
 app.use(corsMiddleware)
@@ -23,21 +22,21 @@ app.use("/api/files", fileRouter)
 
 async function start() {
   try {
-    await mongoose.connect(dbURL, { dbName: "data" })
+    await mongoose.connect('mongodb://localhost:27017', { dbName: "data" })
 
-    if (isProd) {
+    if (__isProd__) {
       const options = {
         cert: fs.readFileSync("/etc/nginx/sslInfo/cert.pem"),
         key: fs.readFileSync("/etc/nginx/sslInfo/key.pem"),
       }
 
       const server = createServer(options, app)
-      server.listen(PORT, () => {
-        console.log("Server is running on HTTPS port " + PORT)
+      server.listen(SERVER_PORT, () => {
+        console.log("Server is running on HTTPS port " + SERVER_PORT)
       })
     } else {
-      app.listen(PORT, () => {
-        console.log("Server is running on HTTP port " + PORT)
+      app.listen(SERVER_PORT, () => {
+        console.log("Server is running on HTTP port " + SERVER_PORT)
       })
     }
   } catch (error) {

@@ -3,8 +3,8 @@ import { Secret, sign } from "jsonwebtoken"
 import { IUserData } from "../models/AuthService"
 import User from "../models/User"
 import { ObjectId } from "mongoose"
+import { SECRET_KEY } from "../const"
 
-const secretKey = process.env.secretKey as Secret
 
 class AuthService {
   async findUserByEmail(email: string) {
@@ -13,7 +13,7 @@ class AuthService {
   }
 
   createAccessToken(_id: ObjectId) {
-    return sign({ id: _id }, secretKey, {
+    return sign({ id: _id }, SECRET_KEY, {
       expiresIn: "1h",
     })
   }
@@ -25,12 +25,11 @@ class AuthService {
     }
 
     const hashedPassword = await bcryptjs.hash(password, 5)
-
+    
     const user = new User({ email, password: hashedPassword })
     await user.save()
 
     const token = this.createAccessToken(user._id)
-
     return {
       token,
       user: {

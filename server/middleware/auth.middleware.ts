@@ -1,8 +1,7 @@
 import "dotenv/config"
 import { NextFunction, Request, Response } from "express"
 import { JwtPayload, Secret, verify } from "jsonwebtoken"
-
-const secretKey = process.env.secretKey as Secret
+import { SECRET_KEY } from "../const"
 
 function authMiddleware(req: Request, res: Response, next: NextFunction) {
   if (req.method === "OPTIONS") {
@@ -15,7 +14,7 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
     if (!token) {
       return res.status(401).json({ message: "Unauthorized" })
     }
-    const decoded = verify(token, secretKey) as JwtPayload
+    const decoded = verify(token, SECRET_KEY) as JwtPayload
     req.user = decoded
 
     next()

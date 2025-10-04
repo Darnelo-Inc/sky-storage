@@ -45,17 +45,22 @@ class FileService {
     try {
       const filePath = Path.join(
         __dirname,
-        `../files/${file.user_id}/${file.path}`
+        `../../files/${file.user_id}/${file.path}`
       )
 
       if (!fs.existsSync(filePath)) {
-        fs.mkdirSync(filePath)
+        console.log(1)
+        console.log('filePath:', filePath)
+        const res = fs.mkdirSync(filePath)
+        console.log('res:', res)
         return { message: "Dir was successfully created" }
       } else {
+        console.log(2)
         return { message: "Dir has already exists" }
       }
     } catch (error) {
-      return { error }
+      console.error(error)
+      throw error
     }
   }
 
@@ -73,10 +78,10 @@ class FileService {
     }
 
     const parentDir = await File.findById(parent_id)
-
+    console.log('parentDir:', parentDir)
     if (parentDir) {
       file.path = `${parentDir.path}/${file.name}`
-
+      console.log('file.path1:', file.path)
       await this.createDir(file)
 
       parentDir.children.push(file._id)
@@ -123,10 +128,10 @@ class FileService {
     if (parentDir) {
       absFilePath = Path.join(
         __dirname,
-        `../files/${user._id}/${parentDir.path}/${file.name}`
+        `../../files/${user._id}/${parentDir.path}/${file.name}`
       )
     } else {
-      absFilePath = Path.join(__dirname, `../files/${user._id}/${file.name}`)
+      absFilePath = Path.join(__dirname, `../../files/${user._id}/${file.name}`)
     }
 
     if (fs.existsSync(absFilePath)) {

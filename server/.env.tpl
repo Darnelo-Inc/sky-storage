@@ -1,0 +1,2 @@
+SERVER_PORT=8080
+SECRET_KEY='peace'
